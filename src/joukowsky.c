@@ -45,13 +45,12 @@ int main(int argc, char *argv[]){
     }
 
 
-    FILE *fp = fopen("data/joukowsky_points.dat", "w");
-    if (!fp) {
-        printf("Error: Could not open file for writing.\n");
+    FILE *file = fopen("../data/joukowsky.dat", "w");
+    if (!file) {
+        printf("Error: Could not open file for writing0.\n");
         return 1;
     }
 
-    //fprintf(fp, "# Wing points\n");
 
     // Generating the airfoil points
     double x_min = 0.0;
@@ -66,10 +65,10 @@ int main(int argc, char *argv[]){
         // Finding the min and max x values
         if (x < x_min) x_min = x;
         if (x > x_max) x_max = x;
-        fprintf(fp, "%f %f\n", creal(z), cimag(z));
+        fprintf(file, "%f %f\n", creal(z), cimag(z));
     }
 
-    fclose(fp);
+    fclose(file);
 
     // Generating insides circles 
     double wing_length = fabs(x_max) + fabs(x_min);
@@ -79,8 +78,8 @@ int main(int argc, char *argv[]){
     double x_center3 = 0.0 + wing_length/3;
 
 
-    fp = fopen("joukowsky_points.dat", "r");
-    if (!fp) {
+    file = fopen("../data/joukowsky.dat", "r");
+    if (!file) {
         printf("Error: Could not open file for reading.\n");
         return 1;
     }
@@ -92,7 +91,7 @@ int main(int argc, char *argv[]){
 
 
     // Reading the file to find y_max and y_min at x_center1, x_center2, x_center3
-    while (fscanf(fp, "%lf %lf", &x, &y) == 2) {
+    while (fscanf(file, "%lf %lf", &x, &y) == 2) {
         if (fabs(x - x_center1) < 0.05) {  
             if (y > y_max1) y_max1 = y;
             if (y < y_min1) y_min1 = y;
@@ -107,7 +106,7 @@ int main(int argc, char *argv[]){
         }
     }
 
-    fclose(fp);
+    fclose(file);
 
     double y_center1 = (y_max1 + y_min1) / 2;
     double y_center2 = (y_max2 + y_min2) / 2;
@@ -125,34 +124,46 @@ int main(int argc, char *argv[]){
     double R3 = c3 * height3;
 
 
-    fp = fopen("joukowsky_points.dat", "a");
-    if (!fp) {
+    file = fopen("../data/circle1.dat", "w");
+    if (!file) {
+        printf("Error: Could not open file for writing1.\n");
+        return 1;
+    }
+
+    for (int i = 0; i <= N; i++){
+        double theta = 2.0 * M_PI * i / N;
+        double complex z1 = x_center1 + R1 * cos(theta) + I * (y_center1 + R1 * sin(theta));
+        fprintf(file, "%f %f\n", creal(z1), cimag(z1));
+    }
+    fclose(file);
+
+
+    file = fopen("../data/circle2.dat", "w");
+    if (!file) {
         printf("Error: Could not open file for writing.\n");
         return 1;
     }
 
-    fprintf(fp, "# Circles 1\n");
-    for (int i = 0; i <= N; i++){
-        double theta = 2.0 * M_PI * i / N;
-        double complex z1 = x_center1 + R1 * cos(theta) + I * (y_center1 + R1 * sin(theta));
-        fprintf(fp, "%f %f\n", creal(z1), cimag(z1));
-    }
-
-    fprintf(fp, "# Circles 2\n");
     for (int i = 0; i <= N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex z2 = x_center2 + R2 * cos(theta) + I * (y_center2 + R2 * sin(theta));
-        fprintf(fp, "%f %f\n", creal(z2), cimag(z2));
+        fprintf(file, "%f %f\n", creal(z2), cimag(z2));
+    }
+    fclose(file);
+
+    file = fopen("../data/circle3.dat", "w");
+    if (!file) {
+        printf("Error: Could not open file for writing.\n");
+        return 1;
     }
     
-    fprintf(fp, "# Circles 3\n");
     for (int i = 0; i <= N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex z3 = x_center3 + R3 * cos(theta) + I * (y_center3 + R3 * sin(theta));
-        fprintf(fp, "%f %f\n", creal(z3), cimag(z3));
+        fprintf(file, "%f %f\n", creal(z3), cimag(z3));
     }
  
-    fclose(fp);
+    fclose(file);
 
 
 }
