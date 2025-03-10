@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
     }
 
 
-    FILE *fp = fopen("joukowsky_points.dat", "w");
+    FILE *fp = fopen("data/joukowsky_points.dat", "w");
     if (!fp) {
         printf("Error: Could not open file for writing.\n");
         return 1;
