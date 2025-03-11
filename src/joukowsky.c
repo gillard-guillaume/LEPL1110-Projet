@@ -1,17 +1,7 @@
-// Joukowsky c implementation
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <complex.h>
-#ifndef M_PI
-    #define M_PI 3.14159265358979323846
-#endif
+#include "joukowsky.h"
 
 
-
-
-double complex joukowski(double complex zeta){
+double complex joukowsky(double complex zeta){
     // Joukowsky transformation
     //z = zeta + 1/zeta;
     double complex xi = creal(zeta);
@@ -58,7 +48,7 @@ int main(int argc, char *argv[]){
     for (int i = 0; i <= N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex zeta = R * cos(theta) + I * R * sin(theta) + mu_x + I * mu_y;
-        double complex z = joukowski(zeta);
+        double complex z = joukowsky(zeta);
         double x = creal(z);
         double y = cimag(z);
         

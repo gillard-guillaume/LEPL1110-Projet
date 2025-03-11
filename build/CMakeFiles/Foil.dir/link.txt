@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/Foil.dir/src/main.c.o CMakeFiles/Foil.dir/src/mesh.c.o -o Foil  -Wl,-rpath,/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/gmsh/gmsh-4.13.1-Linux64-sdk/lib glfw/src/libglfw3.a /usr/lib/x86_64-linux-gnu/libGL.so ../gmsh/gmsh-4.13.1-Linux64-sdk/lib/libgmsh.so /usr/lib/x86_64-linux-gnu/librt.a -lm -ldl 

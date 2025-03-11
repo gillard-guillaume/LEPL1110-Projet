@@ -31,11 +31,9 @@ def plot_joukowsky_shapes(filename):
     # Plot airfoil
     plt.figure(figsize=(8, 6))
     plt.plot(x_airfoil, y_airfoil, label='Joukowsky Airfoil', color='b')
+    plt.scatter(x_airfoil, y_airfoil, color='b', s=10)  # Add points for airfoil
     
-    # Plot circles
-    colors = ['r', 'g', 'm']
-    for i, (x_circle, y_circle) in enumerate(circle_coords):
-        plt.plot(x_circle, y_circle, label=f'Circle {i+1}', color=colors[i])
+ 
     
     plt.axhline(0, color='gray', linewidth=0.5)
     plt.axvline(0, color='gray', linewidth=0.5)
@@ -48,4 +46,4 @@ def plot_joukowsky_shapes(filename):
     plt.show()
 
 # Run the visualization
-plot_joukowsky_shapes("joukowsky_points.dat")
+plot_joukowsky_shapes("data/joukowsky.dat")

@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "mesh.h": "c"
+        "mesh.h": "c",
+        "gmsh.h": "c"
     }
 }
