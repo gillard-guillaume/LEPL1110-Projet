@@ -63,7 +63,7 @@ CMAKE_BINARY_DIR = /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Foil.dir/all
+all: CMakeFiles/joukowskyFoil.dir/all
 all: glfw/all
 .PHONY : all
 
@@ -72,7 +72,7 @@ preinstall: glfw/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Foil.dir/clean
+clean: CMakeFiles/joukowskyFoil.dir/clean
 clean: CMakeFiles/run.dir/clean
 clean: glfw/clean
 .PHONY : clean
@@ -128,44 +128,44 @@ glfw/src/clean: glfw/src/CMakeFiles/update_mappings.dir/clean
 .PHONY : glfw/src/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Foil.dir
+# Target rules for target CMakeFiles/joukowskyFoil.dir
 
 # All Build rule for target.
-CMakeFiles/Foil.dir/all: glfw/src/CMakeFiles/glfw.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=1,2,3 "Built target Foil"
-.PHONY : CMakeFiles/Foil.dir/all
+CMakeFiles/joukowskyFoil.dir/all: glfw/src/CMakeFiles/glfw.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=46,47,48,49 "Built target joukowskyFoil"
+.PHONY : CMakeFiles/joukowskyFoil.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Foil.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles 48
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Foil.dir/all
+CMakeFiles/joukowskyFoil.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles 49
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/joukowskyFoil.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles 0
-.PHONY : CMakeFiles/Foil.dir/rule
+.PHONY : CMakeFiles/joukowskyFoil.dir/rule
 
 # Convenience name for target.
-Foil: CMakeFiles/Foil.dir/rule
-.PHONY : Foil
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/rule
+.PHONY : joukowskyFoil
 
 # clean rule for target.
-CMakeFiles/Foil.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/clean
-.PHONY : CMakeFiles/Foil.dir/clean
+CMakeFiles/joukowskyFoil.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/clean
+.PHONY : CMakeFiles/joukowskyFoil.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/run.dir
 
 # All Build rule for target.
-CMakeFiles/run.dir/all: CMakeFiles/Foil.dir/all
+CMakeFiles/run.dir/all: CMakeFiles/joukowskyFoil.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=49 "Built target run"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=50 "Built target run"
 .PHONY : CMakeFiles/run.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/run.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles 49
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles 50
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/run.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles 0
 .PHONY : CMakeFiles/run.dir/rule
@@ -212,7 +212,7 @@ glfw/CMakeFiles/uninstall.dir/clean:
 glfw/src/CMakeFiles/glfw.dir/all:
 	$(MAKE) $(MAKESILENT) -f glfw/src/CMakeFiles/glfw.dir/build.make glfw/src/CMakeFiles/glfw.dir/depend
 	$(MAKE) $(MAKESILENT) -f glfw/src/CMakeFiles/glfw.dir/build.make glfw/src/CMakeFiles/glfw.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48 "Built target glfw"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45 "Built target glfw"
 .PHONY : glfw/src/CMakeFiles/glfw.dir/all
 
 # Build rule for subdir invocation for target.
@@ -238,7 +238,7 @@ glfw/src/CMakeFiles/glfw.dir/clean:
 glfw/src/CMakeFiles/update_mappings.dir/all:
 	$(MAKE) $(MAKESILENT) -f glfw/src/CMakeFiles/update_mappings.dir/build.make glfw/src/CMakeFiles/update_mappings.dir/depend
 	$(MAKE) $(MAKESILENT) -f glfw/src/CMakeFiles/update_mappings.dir/build.make glfw/src/CMakeFiles/update_mappings.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=50 "Built target update_mappings"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=51 "Built target update_mappings"
 .PHONY : glfw/src/CMakeFiles/update_mappings.dir/all
 
 # Build rule for subdir invocation for target.

@@ -29,8 +29,6 @@ int generateSurface(double *x, double *y, int N) {
     return surfaceID;
 }
 
-   
-
 int getPoints(double *x, double *y, int n, char *filename){
     FILE *f = fopen(filename, "r");
     for (int i = 0; i < n; i++){
@@ -40,11 +38,8 @@ int getPoints(double *x, double *y, int n, char *filename){
     return 0;
 }
 
-
-
 int wing(){
     
-
     int ierr;
 
     gmshInitialize(0, NULL, 1, 0, &ierr);                         
@@ -67,16 +62,15 @@ int wing(){
     getPoints(circle2_x, circle2_y, N, "../data/circle2.dat");
     getPoints(circle3_x, circle3_y, N, "../data/circle3.dat");
 
-
-    printf("🚀 Génération des surfaces...\n");
+    printf("Generating surfaces...\n");
     int joukowsky = generateSurface(joukowsky_x, joukowsky_y, N);
-    printf("✅ Surface de Joukowsky générée\n");
+    printf("Joukowsky surface generated\n");
     int circle1 = generateSurface(circle1_x, circle1_y, N);
-    printf("✅ Surface du cercle 1 générée\n");
+    printf("Circle 1 surface generated\n");
     int circle2 = generateSurface(circle2_x, circle2_y, N);
-    printf("✅ Surface du cercle 2 générée\n");
+    printf("Circle 2 surface generated\n");
     int circle3 = generateSurface(circle3_x, circle3_y, N);
-    printf("✅ Surface du cercle 3 générée\n");
+    printf("Circle 3 surface generated\n");
 
     int joukowskyID[] = {2, joukowsky};
     int circle1ID[] = {2, circle1};

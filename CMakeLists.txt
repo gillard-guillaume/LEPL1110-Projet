@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(myFemProject)
 
-set(EXEC_NAME Foil)
+set(EXEC_NAME joukowskyFoil)
 
 # Set GMSH Version : example gmsh-4.12.2 -> GMSH_VERSION=gmsh-4.12, GMSH_MINOR=2
 set(GMSH_VERSION gmsh-4.13)
@@ -49,7 +49,8 @@ include_directories(${GMSH_INCLUDE_DIR})
 
 
 # link the aforementioned libraries
-add_executable(${EXEC_NAME} src/main.c src/mesh.c)
+include_directories(${EXEC_NAME} src)
+add_executable(${EXEC_NAME} src/main.c src/mesh.c src/joukowsky.c) 
 target_link_libraries(${EXEC_NAME} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
 
 if(APPLE)
@@ -66,4 +67,4 @@ endif()
 target_compile_definitions(${EXEC_NAME} PRIVATE graphic)
 
 # add a custom target so we can do make run directly
-add_custom_target(run COMMAND ${EXEC_NAME} DEPENDS ${EXEC_NAME} COMMENT "./${EXEC_NAME}")
+add_custom_target(run COMMAND ./${EXEC_NAME} 1.2 -0.1 0.1 100 DEPENDS ${EXEC_NAME} COMMENT "./${EXEC_NAME}")

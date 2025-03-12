@@ -162,17 +162,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Foil
+# Target rules for targets named joukowskyFoil
 
 # Build rule for target.
-Foil: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Foil
-.PHONY : Foil
+joukowskyFoil: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 joukowskyFoil
+.PHONY : joukowskyFoil
 
 # fast build rule for target.
-Foil/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/build
-.PHONY : Foil/fast
+joukowskyFoil/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/build
+.PHONY : joukowskyFoil/fast
 
 #=============================================================================
 # Target rules for targets named run
@@ -226,12 +226,36 @@ update_mappings/fast:
 	$(MAKE) $(MAKESILENT) -f glfw/src/CMakeFiles/update_mappings.dir/build.make glfw/src/CMakeFiles/update_mappings.dir/build
 .PHONY : update_mappings/fast
 
+src/joukowsky.o: src/joukowsky.c.o
+.PHONY : src/joukowsky.o
+
+# target to build an object file
+src/joukowsky.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o
+.PHONY : src/joukowsky.c.o
+
+src/joukowsky.i: src/joukowsky.c.i
+.PHONY : src/joukowsky.i
+
+# target to preprocess a source file
+src/joukowsky.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.i
+.PHONY : src/joukowsky.c.i
+
+src/joukowsky.s: src/joukowsky.c.s
+.PHONY : src/joukowsky.s
+
+# target to generate assembly for a file
+src/joukowsky.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.s
+.PHONY : src/joukowsky.c.s
+
 src/main.o: src/main.c.o
 .PHONY : src/main.o
 
 # target to build an object file
 src/main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/src/main.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/main.c.o
 .PHONY : src/main.c.o
 
 src/main.i: src/main.c.i
@@ -239,7 +263,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -247,7 +271,7 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/main.c.s
 .PHONY : src/main.c.s
 
 src/mesh.o: src/mesh.c.o
@@ -255,7 +279,7 @@ src/mesh.o: src/mesh.c.o
 
 # target to build an object file
 src/mesh.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/src/mesh.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh.c.o
 .PHONY : src/mesh.c.o
 
 src/mesh.i: src/mesh.c.i
@@ -263,7 +287,7 @@ src/mesh.i: src/mesh.c.i
 
 # target to preprocess a source file
 src/mesh.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/src/mesh.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh.c.i
 .PHONY : src/mesh.c.i
 
 src/mesh.s: src/mesh.c.s
@@ -271,7 +295,7 @@ src/mesh.s: src/mesh.c.s
 
 # target to generate assembly for a file
 src/mesh.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Foil.dir/build.make CMakeFiles/Foil.dir/src/mesh.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh.c.s
 .PHONY : src/mesh.c.s
 
 # Help Target
@@ -289,8 +313,11 @@ help:
 	@echo "... run"
 	@echo "... uninstall"
 	@echo "... update_mappings"
-	@echo "... Foil"
 	@echo "... glfw"
+	@echo "... joukowskyFoil"
+	@echo "... src/joukowsky.o"
+	@echo "... src/joukowsky.i"
+	@echo "... src/joukowsky.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

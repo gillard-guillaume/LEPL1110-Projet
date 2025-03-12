@@ -66,9 +66,9 @@ include CMakeFiles/run.dir/compiler_depend.make
 # Include the progress variables for this target.
 include CMakeFiles/run.dir/progress.make
 
-CMakeFiles/run: Foil
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) ./Foil
-	./Foil
+CMakeFiles/run: joukowskyFoil
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) ./joukowskyFoil
+	./joukowskyFoil 1.2 -0.1 0.1 100
 
 run: CMakeFiles/run
 run: CMakeFiles/run.dir/build.make

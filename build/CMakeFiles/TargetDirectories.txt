@@ -1,4 +1,4 @@
-/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/Foil.dir
+/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/joukowskyFoil.dir
 /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/run.dir
 /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/edit_cache.dir
 /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/rebuild_cache.dir

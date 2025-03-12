@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Foil.dir/src/joukowsky.c.o"
+  "CMakeFiles/Foil.dir/src/joukowsky.c.o.d"
   "CMakeFiles/Foil.dir/src/main.c.o"
   "CMakeFiles/Foil.dir/src/main.c.o.d"
   "CMakeFiles/Foil.dir/src/mesh.c.o"

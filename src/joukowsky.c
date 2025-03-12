@@ -1,7 +1,7 @@
 #include "joukowsky.h"
 
 
-double complex joukowsky(double complex zeta){
+double complex joukowskyTransform(double complex zeta){
     // Joukowsky transformation
     //z = zeta + 1/zeta;
     double complex xi = creal(zeta);
@@ -12,28 +12,7 @@ double complex joukowsky(double complex zeta){
 }
 
 
-int main(int argc, char *argv[]){
-    if (argc != 5){
-        printf("Usage: %s <R> <mu_y> <mu_x> <N>\n", argv[0]);
-        printf("  R     = Circle radius (should be >1)\n");
-        printf("  mu_x  = X offset of the circle center\n");
-        printf("  mu_y  = Y offset of the circle center\n");
-        printf("  N     = Number of points on the circle\n");
-        return 1;
-    }
-
-    // Reading input arguments
-    double R = atof(argv[1]);
-    double mu_x = atof(argv[2]);
-    double mu_y = atof(argv[3]);
-    int N = atoi(argv[4]);
-
-    // Checking the input arguments
-    if (R <= 1.0 || N < 3) {
-        printf("Error: R must be >1 and N must be at least 3.\n"); // With R=1 for some angle the transformation will fail
-        return 1;
-    }
-
+int joukowsky(double R, double mu_x, double mu_y, int N){
 
     FILE *file = fopen("../data/joukowsky.dat", "w");
     if (!file) {
@@ -48,7 +27,7 @@ int main(int argc, char *argv[]){
     for (int i = 0; i < N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex zeta = R * cos(theta) + I * R * sin(theta) + mu_x + I * mu_y;
-        double complex z = joukowsky(zeta);
+        double complex z = joukowskyTransform(zeta);
         double x = creal(z);
         double y = cimag(z);
         
@@ -57,7 +36,6 @@ int main(int argc, char *argv[]){
         if (x > x_max) x_max = x;
         fprintf(file, "%f %f\n", creal(z), cimag(z));
     }
-
     fclose(file);
 
     // Generating insides circles 
@@ -74,7 +52,6 @@ int main(int argc, char *argv[]){
         return 1;
     }
     double x, y;
-
     double y_max1 = 0.0, y_min1 = 0.0;
     double y_max2 = 0.0, y_min2 = 0.0;
     double y_max3 = 0.0, y_min3 = 0.0;
@@ -95,7 +72,6 @@ int main(int argc, char *argv[]){
             if (y < y_min3) y_min3 = y;
         }
     }
-
     fclose(file);
 
     double y_center1 = (y_max1 + y_min1) / 2;
@@ -127,7 +103,6 @@ int main(int argc, char *argv[]){
     }
     fclose(file);
 
-
     file = fopen("../data/circle2.dat", "w");
     if (!file) {
         printf("Error: Could not open file for writing.\n");
@@ -152,8 +127,6 @@ int main(int argc, char *argv[]){
         double complex z3 = x_center3 + R3 * cos(theta) + I * (y_center3 + R3 * sin(theta));
         fprintf(file, "%f %f\n", creal(z3), cimag(z3));
     }
- 
     fclose(file);
-
-
+    return 0;
 }
