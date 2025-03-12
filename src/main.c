@@ -6,21 +6,26 @@
 int main() {
     int ierr;
     
-    printf("🚀 Génération du maillage de l'aile...\n");
+    printf("🚀 Generating wing mesh...\n");
     if (wing() != 0) {
         printf("Error: Wing generation failed.\n");
         return 1;
     }
-    printf("✅ Maillage de l'aile généré\n");
+    printf("✅ Wing mesh generated successfully.\n");
 
+    // Save the mesh to a file
     gmshWrite("../data/wing.msh", &ierr);
     if (ierr) {
         printf("Error: Could not write mesh file.\n");
         return 1;
     }
 
-    printf("✅ Maillage généré et sauvegardé dans '../data/wing.msh'\n");
+    printf("✅ Mesh saved to '../data/wing.msh'\n");
 
+    // Display the mesh using Gmsh GUI
+    gmshFltkRun(&ierr);
+
+    // Finalize Gmsh
     gmshFinalize(&ierr);
     
     return 0;

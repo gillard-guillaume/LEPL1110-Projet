@@ -45,7 +45,7 @@ int main(int argc, char *argv[]){
     // Generating the airfoil points
     double x_min = 0.0;
     double x_max = 0.0;
-    for (int i = 0; i <= N; i++){
+    for (int i = 0; i < N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex zeta = R * cos(theta) + I * R * sin(theta) + mu_x + I * mu_y;
         double complex z = joukowsky(zeta);
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    for (int i = 0; i <= N; i++){
+    for (int i = 0; i < N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex z1 = x_center1 + R1 * cos(theta) + I * (y_center1 + R1 * sin(theta));
         fprintf(file, "%f %f\n", creal(z1), cimag(z1));
@@ -134,7 +134,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    for (int i = 0; i <= N; i++){
+    for (int i = 0; i < N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex z2 = x_center2 + R2 * cos(theta) + I * (y_center2 + R2 * sin(theta));
         fprintf(file, "%f %f\n", creal(z2), cimag(z2));
@@ -147,7 +147,7 @@ int main(int argc, char *argv[]){
         return 1;
     }
     
-    for (int i = 0; i <= N; i++){
+    for (int i = 0; i < N; i++){
         double theta = 2.0 * M_PI * i / N;
         double complex z3 = x_center3 + R3 * cos(theta) + I * (y_center3 + R3 * sin(theta));
         fprintf(file, "%f %f\n", creal(z3), cimag(z3));

@@ -10,7 +10,7 @@ double geoSize(double x, double y);
 
 int generateSurface(double *x, double *y, int N);
 
-int getPoints (const char *filename, double **x, double **y, int *N);
+int getPoints(double *x, double *y, int n, char *filename);
 
 int wing();
 

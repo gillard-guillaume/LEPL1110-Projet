@@ -21,64 +21,22 @@ int generateSurface(double *x, double *y, int N) {
             return 1;
         }
     }
-    int splineID = gmshModelOccAddSpline(points, N, -1, NULL, 0, &ierr);
-    if (ierr) {
-        printf("Error: Could not add spline.\n");
-        free(points);
-        return 1;
-    }
-
-    free(points);
-
+    points[N] = points[0];
+    int splineID = gmshModelOccAddSpline(points, N+1, -1, NULL, 0, &ierr);
     int loopID = gmshModelOccAddCurveLoop(&splineID, 1, -1, &ierr);
-    if (ierr) {
-        printf("Error: Could not add curve loop.\n");
-        return 1;
-    }   
-
     int surfaceID = gmshModelOccAddPlaneSurface(&loopID, 1, -1, &ierr);
-    if (ierr) {
-        printf("Error: Could not add plane surface.\n");
-        return 1;
-    }
 
     return surfaceID;
 }
 
+   
 
-int getPoints (const char *filename, double **x, double **y, int *N){
-    char path[256];
-    sprintf(path, "../data/%s", filename);
-    FILE *file = fopen(path, "r");
-    if (!file) {
-        printf("Error: Unable to open file %s\n", filename);
-        return -1;
+int getPoints(double *x, double *y, int n, char *filename){
+    FILE *f = fopen(filename, "r");
+    for (int i = 0; i < n; i++){
+        fscanf(f, "%lf %lf\n", &x[i], &y[i]);
     }
-
-    
-    int count = 0;
-    double temp_x, temp_y;
-    
-
-    while (fscanf(file, "%lf %lf", &temp_x, &temp_y) == 2) {
-        count++;
-    }
-    rewind(file);  
-
-    *x = (double *)malloc(count * sizeof(double));
-    *y = (double *)malloc(count * sizeof(double));
-    if (!(*x) || !(*y)) {
-        printf("Error: Memory allocation failed.\n");
-        fclose(file);
-        return -1;
-    }
-
-    for (int i = 0; i < count; i++) {
-        fscanf(file, "%lf %lf", &((*x)[i]), &((*y)[i]));
-    }
-
-    fclose(file);
-    *N = count;  
+    fclose(f);
     return 0;
 }
 
@@ -92,31 +50,42 @@ int wing(){
     gmshInitialize(0, NULL, 1, 0, &ierr);                         
     gmshModelAdd("Wing", &ierr);
     
+    int N = 100;
+
     // Getting the points from the data files
-    double *joukowsky_x, *joukowsky_y, *circle1_x, *circle1_y, *circle2_x, *circle2_y, *circle3_x, *circle3_y;
-    int N;
-    if (getPoints("joukowsky.dat", &joukowsky_x, &joukowsky_y, &N) || getPoints("circle1.dat", &circle1_x, &circle1_y, &N) || getPoints("circle2.dat", &circle2_x, &circle2_y, &N) || getPoints("circle3.dat", &circle3_x, &circle3_y, &N)) {
-        return 1;
-    }
+    double *joukowsky_x = (double *)malloc(N * sizeof(double));
+    double *joukowsky_y = (double *)malloc(N * sizeof(double));
+    double *circle1_x = (double *)malloc(N * sizeof(double));
+    double *circle1_y = (double *)malloc(N * sizeof(double));
+    double *circle2_x = (double *)malloc(N * sizeof(double));
+    double *circle2_y = (double *)malloc(N * sizeof(double));
+    double *circle3_x = (double *)malloc(N * sizeof(double));
+    double *circle3_y = (double *)malloc(N * sizeof(double));
+
+    getPoints(joukowsky_x, joukowsky_y, N, "../data/joukowsky.dat");
+    getPoints(circle1_x, circle1_y, N, "../data/circle1.dat");
+    getPoints(circle2_x, circle2_y, N, "../data/circle2.dat");
+    getPoints(circle3_x, circle3_y, N, "../data/circle3.dat");
+
+
     printf("🚀 Génération des surfaces...\n");
     int joukowsky = generateSurface(joukowsky_x, joukowsky_y, N);
+    printf("✅ Surface de Joukowsky générée\n");
     int circle1 = generateSurface(circle1_x, circle1_y, N);
+    printf("✅ Surface du cercle 1 générée\n");
     int circle2 = generateSurface(circle2_x, circle2_y, N);
+    printf("✅ Surface du cercle 2 générée\n");
     int circle3 = generateSurface(circle3_x, circle3_y, N);
+    printf("✅ Surface du cercle 3 générée\n");
 
-    int objectDimTags[] = {2, joukowsky};
-    int toolDimTags[] = {2, circle1, 2, circle2, 2, circle3};
+    int joukowskyID[] = {2, joukowsky};
+    int circle1ID[] = {2, circle1};
+    int circle2ID[] = {2, circle2};
+    int circle3ID[] = {2, circle3};
 
-    int *outDimTags = NULL;
-    size_t outDimTags_n = 0;
-
-    gmshModelOccCut(objectDimTags, 2, toolDimTags, 6, &outDimTags, &outDimTags_n, NULL, NULL, NULL, -1, 1, 1, &ierr);
-    if (ierr) {
-        printf("Error: Could not cut surfaces.\n");
-        return 1;
-    }
-
-    int wing = outDimTags[1];
+    gmshModelOccCut(joukowskyID,2,circle1ID ,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
+    gmshModelOccCut(joukowskyID,2,circle2ID ,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
+    gmshModelOccCut(joukowskyID,2,circle3ID ,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
 
     gmshModelOccSynchronize(&ierr);
     gmshOptionSetNumber("Mesh.SaveAll", 1, &ierr);
