@@ -11,8 +11,17 @@ double complex joukowskyTransform(double complex zeta){
     return CMPLX(x, y);
 }
 
+double complex inverseJoukowskyTransform(double complex z){
+    // Inverse Joukowsky transformation
+    //zeta = 0.5*(z + sqrt(z^2 - 4))
+    double xi = creal(z);
+    double eta = cimag(z);
+    double complex zeta = 0.5 * (z + csqrt(pow(z, 2) - 4));
+    return zeta;
+}
 
-int joukowsky(double R, double mu_x, double mu_y, int N){
+
+int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
 
     FILE *file = fopen("../data/joukowsky.dat", "w");
     if (!file) {
@@ -45,6 +54,9 @@ int joukowsky(double R, double mu_x, double mu_y, int N){
     double x_center2 = 0.0;
     double x_center3 = 0.0 + wing_length/3;
 
+    theGeometry->xCircle1 = x_center1;
+    theGeometry->xCircle2 = x_center2;
+    theGeometry->xCircle3 = x_center3;
 
     file = fopen("../data/joukowsky.dat", "r");
     if (!file) {
@@ -78,6 +90,10 @@ int joukowsky(double R, double mu_x, double mu_y, int N){
     double y_center2 = (y_max2 + y_min2) / 2;
     double y_center3 = (y_max3 + y_min3) / 2;
 
+    theGeometry->yCircle1 = y_center1;
+    theGeometry->yCircle2 = y_center2;
+    theGeometry->yCircle3 = y_center3;
+
     
     double height1 = fabs(y_max1) + fabs(y_min1);
     double height2 = fabs(y_max2) + fabs(y_min2);
@@ -88,6 +104,10 @@ int joukowsky(double R, double mu_x, double mu_y, int N){
     double R1 = c1 * height1;
     double R2 = c2 * height2;
     double R3 = c3 * height3;
+
+    theGeometry->rCircle1 = R1;
+    theGeometry->rCircle2 = R2;
+    theGeometry->rCircle3 = R3;
 
 
     file = fopen("../data/circle1.dat", "w");

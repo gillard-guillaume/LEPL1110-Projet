@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/joukowskyFoil.dir/src/fem.c.o"
+  "CMakeFiles/joukowskyFoil.dir/src/fem.c.o.d"
+  "CMakeFiles/joukowskyFoil.dir/src/glfem.c.o"
+  "CMakeFiles/joukowskyFoil.dir/src/glfem.c.o.d"
   "CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o"
   "CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o.d"
   "CMakeFiles/joukowskyFoil.dir/src/main.c.o"

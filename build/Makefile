@@ -226,6 +226,54 @@ update_mappings/fast:
 	$(MAKE) $(MAKESILENT) -f glfw/src/CMakeFiles/update_mappings.dir/build.make glfw/src/CMakeFiles/update_mappings.dir/build
 .PHONY : update_mappings/fast
 
+src/fem.o: src/fem.c.o
+.PHONY : src/fem.o
+
+# target to build an object file
+src/fem.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/fem.c.o
+.PHONY : src/fem.c.o
+
+src/fem.i: src/fem.c.i
+.PHONY : src/fem.i
+
+# target to preprocess a source file
+src/fem.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/fem.c.i
+.PHONY : src/fem.c.i
+
+src/fem.s: src/fem.c.s
+.PHONY : src/fem.s
+
+# target to generate assembly for a file
+src/fem.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/fem.c.s
+.PHONY : src/fem.c.s
+
+src/glfem.o: src/glfem.c.o
+.PHONY : src/glfem.o
+
+# target to build an object file
+src/glfem.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/glfem.c.o
+.PHONY : src/glfem.c.o
+
+src/glfem.i: src/glfem.c.i
+.PHONY : src/glfem.i
+
+# target to preprocess a source file
+src/glfem.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/glfem.c.i
+.PHONY : src/glfem.c.i
+
+src/glfem.s: src/glfem.c.s
+.PHONY : src/glfem.s
+
+# target to generate assembly for a file
+src/glfem.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/glfem.c.s
+.PHONY : src/glfem.c.s
+
 src/joukowsky.o: src/joukowsky.c.o
 .PHONY : src/joukowsky.o
 
@@ -315,6 +363,12 @@ help:
 	@echo "... update_mappings"
 	@echo "... glfw"
 	@echo "... joukowskyFoil"
+	@echo "... src/fem.o"
+	@echo "... src/fem.i"
+	@echo "... src/fem.s"
+	@echo "... src/glfem.o"
+	@echo "... src/glfem.i"
+	@echo "... src/glfem.s"
 	@echo "... src/joukowsky.o"
 	@echo "... src/joukowsky.i"
 	@echo "... src/joukowsky.s"
