@@ -52,7 +52,9 @@ typedef struct {
 } femDomain;
 
 typedef struct {
-    double R, muX, muY, hJoukowsky;
+    double R, muX, muY, N;
+    double *joukowsky_x;
+    double *joukowsky_y;
     double xCircle1, yCircle1, rCircle1, hCircle1, dCircle1;
     double xCircle2, yCircle2, rCircle2, hCircle2, dCircle2;
     double xCircle3, yCircle3, rCircle3, hCircle3, dCircle3;

@@ -15,6 +15,6 @@ double complex joukowskyTransform(double complex zeta);
 
 double complex inverseJoukowskyTransform(double complex z);
 
-int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry);
+int joukowsky(femGeo *theGeometry);
 
 #endif

@@ -21,7 +21,7 @@ double complex inverseJoukowskyTransform(double complex z){
 }
 
 
-int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
+int joukowsky(femGeo *theGeometry){
 
     FILE *file = fopen("../data/joukowsky.dat", "w");
     if (!file) {
@@ -29,6 +29,12 @@ int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
         return 1;
     }
 
+    double R = theGeometry->R;
+    double mu_x = theGeometry->muX;
+    double mu_y = theGeometry->muY;
+    double N = theGeometry->N;
+    double *joukowsky_x = theGeometry->joukowsky_x;
+    double *joukowsky_y = theGeometry->joukowsky_y;
 
     // Generating the airfoil points
     double x_min = 0.0;
@@ -43,11 +49,14 @@ int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
         // Finding the min and max x values
         if (x < x_min) x_min = x;
         if (x > x_max) x_max = x;
+        joukowsky_x[i] = x;
+        joukowsky_y[i] = y;
+        // Writing the points to the file
         fprintf(file, "%f %f\n", creal(z), cimag(z));
     }
     fclose(file);
 
-    // Generating insides circles 
+    // Finding insides circles centers and radius
     double wing_length = fabs(x_max) + fabs(x_min);
 
     double x_center1 = 0.0 - wing_length/3;
@@ -58,11 +67,6 @@ int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
     theGeometry->xCircle2 = x_center2;
     theGeometry->xCircle3 = x_center3;
 
-    file = fopen("../data/joukowsky.dat", "r");
-    if (!file) {
-        printf("Error: Could not open file for reading.\n");
-        return 1;
-    }
     double x, y;
     double y_max1 = 0.0, y_min1 = 0.0;
     double y_max2 = 0.0, y_min2 = 0.0;
@@ -70,12 +74,14 @@ int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
 
 
     // Reading the file to find y_max and y_min at x_center1, x_center2, x_center3
-    while (fscanf(file, "%lf %lf", &x, &y) == 2) {
+    for (int i = 0; i < N; i++){
+        x = joukowsky_x[i];
+        y = joukowsky_y[i];
         if (fabs(x - x_center1) < 0.05) {  
             if (y > y_max1) y_max1 = y;
             if (y < y_min1) y_min1 = y;
         }
-        if (fabs(x - x_center2) < 0.05) {  
+        if (fabs(x - x_center2) < 0.05) {
             if (y > y_max2) y_max2 = y;
             if (y < y_min2) y_min2 = y;
         }
@@ -84,7 +90,6 @@ int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
             if (y < y_min3) y_min3 = y;
         }
     }
-    fclose(file);
 
     double y_center1 = (y_max1 + y_min1) / 2;
     double y_center2 = (y_max2 + y_min2) / 2;
@@ -109,44 +114,5 @@ int joukowsky(double R, double mu_x, double mu_y, int N, femGeo *theGeometry){
     theGeometry->rCircle2 = R2;
     theGeometry->rCircle3 = R3;
 
-
-    file = fopen("../data/circle1.dat", "w");
-    if (!file) {
-        printf("Error: Could not open file for writing1.\n");
-        return 1;
-    }
-
-    for (int i = 0; i < N; i++){
-        double theta = 2.0 * M_PI * i / N;
-        double complex z1 = x_center1 + R1 * cos(theta) + I * (y_center1 + R1 * sin(theta));
-        fprintf(file, "%f %f\n", creal(z1), cimag(z1));
-    }
-    fclose(file);
-
-    file = fopen("../data/circle2.dat", "w");
-    if (!file) {
-        printf("Error: Could not open file for writing.\n");
-        return 1;
-    }
-
-    for (int i = 0; i < N; i++){
-        double theta = 2.0 * M_PI * i / N;
-        double complex z2 = x_center2 + R2 * cos(theta) + I * (y_center2 + R2 * sin(theta));
-        fprintf(file, "%f %f\n", creal(z2), cimag(z2));
-    }
-    fclose(file);
-
-    file = fopen("../data/circle3.dat", "w");
-    if (!file) {
-        printf("Error: Could not open file for writing.\n");
-        return 1;
-    }
-    
-    for (int i = 0; i < N; i++){
-        double theta = 2.0 * M_PI * i / N;
-        double complex z3 = x_center3 + R3 * cos(theta) + I * (y_center3 + R3 * sin(theta));
-        fprintf(file, "%f %f\n", creal(z3), cimag(z3));
-    }
-    fclose(file);
     return 0;
 }

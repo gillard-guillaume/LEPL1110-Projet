@@ -8,50 +8,52 @@ double interpolationH(double x, double x0, double x1, double h0, double h) {
     return q0*P0 + q1*P1;
 }
 
+
 double geoSize(double x, double y){
     femGeo *theGeometry = geoGetGeometry();
-
     double h = theGeometry->h;
 
-    // Joukowsky parameters
-    double R = theGeometry->R;
-    double muX = theGeometry->muX;
-    double muY = theGeometry->muY;
-    double hJoukowsky = theGeometry->hJoukowsky;
+    double x0 = theGeometry->xCircle1;
+    double y0 = theGeometry->yCircle1;
+    double r0 = theGeometry->rCircle1;
+    double d0 = theGeometry->dCircle1;
+    double h0 = theGeometry->hCircle1;
+
+    double x1 = theGeometry->xCircle2;
+    double y1 = theGeometry->yCircle2;
+    double r1 = theGeometry->rCircle2;
+    double d1 = theGeometry->dCircle2;
+    double h1 = theGeometry->hCircle3;
+
+    double x2 = theGeometry->xCircle3;
+    double y2 = theGeometry->yCircle3;
+    double r2 = theGeometry->rCircle3;
+    double d2 = theGeometry->dCircle3;
+    double h2 = theGeometry->hCircle3;
+
+    double hfinal = h;
+    double d = sqrt((x-x0)*(x-x0) + (y-y0)*(y-y0)) - r0;
+    if (d < d0) {
+        double a = (-2*h + 2*h0)/(d0*d0*d0);
+        double b = (3*h  - 3*h0)/(d0*d0);
+        double c = 0;
+        hfinal = a*d*d*d + b*d*d + c*d + h0; }
+        
+    d = sqrt((x-x1)*(x-x1) + (y-y1)*(y-y1)) - r1;
+    if (d < d1) {
+        double a = (-2*h + 2*h1)/(d1*d1*d1);
+        double b = (3*h  - 3*h1)/(d1*d1);
+        double c = 0;
+        hfinal = fmin(hfinal,a*d*d*d + b*d*d + c*d + h1); }
     
-    // Circles parameters
-    double xCircle1 = theGeometry->xCircle1, yCircle1 = theGeometry->yCircle1, rCircle1 = theGeometry->rCircle1, hCircle1 = theGeometry->hCircle1, dCircle1 = theGeometry->dCircle1;
-    double xCircle2 = theGeometry->xCircle2, yCircle2 = theGeometry->yCircle2, rCircle2 = theGeometry->rCircle2, hCircle2 = theGeometry->hCircle2, dCircle2 = theGeometry->dCircle2;
-    double xCircle3 = theGeometry->xCircle3, yCircle3 = theGeometry->yCircle3, rCircle3 = theGeometry->rCircle3, hCircle3 = theGeometry->hCircle3, dCircle3 = theGeometry->dCircle3;
+    d = sqrt((x-x2)*(x-x2) + (y-y2)*(y-y2)) - r2;
+    if (d < d2) {
+        double a = (-2*h + 2*h2)/(d2*d2*d2);
+        double b = (3*h  - 3*h2)/(d2*d2);
+        double c = 0;
+        hfinal = fmin(hfinal,a*d*d*d + b*d*d + c*d + h2); }
 
-    // Getting back to the Joukowsky plane
-    double complex zeta = inverseJoukowskyTransform(x + I*y);
-    double xJoukowsky = creal(zeta);
-    double yJoukowsky = cimag(zeta);
-    // Computing the distance to the center of the joukowski circle
-    double dJoukowsky = sqrt(pow(xJoukowsky - muX, 2) + pow(yJoukowsky - muY, 2));
-    // Computing the distance to the circles
-    dCircle1 = sqrt(pow(x - xCircle1, 2) + pow(y - yCircle1, 2));
-    dCircle2 = sqrt(pow(x - xCircle2, 2) + pow(y - yCircle2, 2));
-    dCircle3 = sqrt(pow(x - xCircle3, 2) + pow(y - yCircle3, 2));
-
-    double hres = h;
-    double hres0 = h;
-    double hres1 = h, hres2 = h, hres3 = h;
-
-    if (dJoukowsky < 0) return hres;
-    if (dCircle1 < 0) return hres1;
-    if (dCircle2 < 0) return hres2;
-    if (dCircle3 < 0) return hres3;
-
-    if (dJoukowsky > 0.75*R) return interpolationH(dJoukowsky, R, 0.9*R, hJoukowsky, h);
-    if (dCircle1 < 1.25*rCircle1) return interpolationH(dCircle1, rCircle1, 1.1*rCircle1, hCircle1, h);
-    if (dCircle2 < 1.25*rCircle2) return interpolationH(dCircle2, rCircle2, 1.1*rCircle2, hCircle2, h);
-    if (dCircle3 < 1.25*rCircle3) return interpolationH(dCircle3, rCircle3, 1.1*rCircle3, hCircle3, h);
-
-
-    return hres;
-
+    return hfinal;
 }
 
 int generateSurface(double *x, double *y, int N) {
@@ -131,10 +133,10 @@ int wing(femGeo *theGeometry) {
     gmshModelOccCut(joukowskyID,2,circle3ID ,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
 
     geoSetSizeCallback(geoSize);
-                                  
-    gmshModelOccSynchronize(&ierr);       
+
+    gmshModelOccSynchronize(&ierr);
     gmshOptionSetNumber("Mesh.SaveAll", 1, &ierr);
-    gmshModelMeshGenerate(2, &ierr);  
+    gmshModelMeshGenerate(2, &ierr);
 
     return 0;
 }

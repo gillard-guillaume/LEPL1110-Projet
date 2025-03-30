@@ -33,6 +33,12 @@ int main(int argc, char *argv[]) {
     theGeometry->elementType = FEM_TRIANGLE;
     theGeometry->geoSize = geoSize;
 
+
+    theGeometry->h = 2.5;
+    theGeometry->hCircle1 = 0.6;
+    theGeometry->hCircle2 = 2.2;
+    theGeometry->hCircle3 = 0.3;
+
     // Generating Joukowsky airfoil and circles points
     printf("Generating Joukowsky airfoil and circles points...\n");
     if (joukowsky(R, mu_x, mu_y, N, theGeometry) != 0) {
@@ -60,6 +66,9 @@ int main(int argc, char *argv[]) {
 
 
     geoMeshImport();
+
+    gmshFltkInitialize(&ierr);
+    gmshFltkRun(&ierr);
 
 //
 //  -3- Champ de la taille de r�f�rence du maillage
