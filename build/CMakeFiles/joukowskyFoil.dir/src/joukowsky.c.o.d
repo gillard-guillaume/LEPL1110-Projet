@@ -63,5 +63,8 @@ CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o: \
  /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
- /usr/include/strings.h \
+ /usr/include/strings.h /usr/include/time.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
  /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h

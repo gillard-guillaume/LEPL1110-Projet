@@ -25,23 +25,26 @@ int main(int argc, char *argv[]) {
     }
 
     geoInitialize();
-    femGeo *theGeometry = geoGetGeometry();
-    theGeometry->R = R;
-    theGeometry->muX = mu_x;
-    theGeometry->muY = mu_y;
-    theGeometry->h = 0.1;
-    theGeometry->elementType = FEM_TRIANGLE;
-    theGeometry->geoSize = geoSize;
+    femGeo* theGeometry = geoGetGeometry();    
+    theGeometry->h            =  0.1;  
+    theGeometry->R            =  R;
+    theGeometry->muX         =  mu_x;
+    theGeometry->muY         =  mu_y;
+    theGeometry->N            =  N;
+    theGeometry->joukowsky_x  = (double *)malloc(N * sizeof(double));
+    theGeometry->joukowsky_y  = (double *)malloc(N * sizeof(double));
+    theGeometry->dCircle1     = theGeometry->h * 2;
+    theGeometry->dCircle2     = theGeometry->h * 2;
+    theGeometry->dCircle3     = theGeometry->h * 2;
+    theGeometry->hCircle1     = theGeometry->h;
+    theGeometry->hCircle2     = theGeometry->h;
+    theGeometry->hCircle3     = theGeometry->h;
 
-
-    theGeometry->h = 2.5;
-    theGeometry->hCircle1 = 0.6;
-    theGeometry->hCircle2 = 2.2;
-    theGeometry->hCircle3 = 0.3;
+    theGeometry->elementType  = FEM_TRIANGLE;
 
     // Generating Joukowsky airfoil and circles points
     printf("Generating Joukowsky airfoil and circles points...\n");
-    if (joukowsky(R, mu_x, mu_y, N, theGeometry) != 0) {
+    if (joukowsky(theGeometry) != 0) {
         printf("Error: Joukowsky airfoil and circles generation failed.\n");
         return 1;
     }
@@ -49,11 +52,11 @@ int main(int argc, char *argv[]) {
 
 
     printf("Generating wing mesh...\n");
-    if (wing(theGeometry) != 0) {
-        printf("Error: Wing generation failed.\n");
+    if (geoMeshGenerate() != 0) {
+        printf("Error: Mesh generation failed.\n");
         return 1;
     }
-    printf("Wing mesh generated successfully.\n");
+    printf("Mesh generated successfully.\n");
 
     // Save the mesh to a file
     gmshWrite("../data/wing.msh", &ierr);
@@ -61,7 +64,6 @@ int main(int argc, char *argv[]) {
         printf("Error: Could not write mesh file.\n");
         return 1;
     }
-
     printf("Mesh saved to '../data/wing.msh'\n");
 
 
