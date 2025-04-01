@@ -510,6 +510,60 @@ void femElasticityAssembleNeumann(femProblem *theProblem){
         }
     }
 }
+
+void femElasticityAssembleNeumannNormal(femProblem *theProblem){
+    femFullSystem  *theSystem = theProblem->system;
+    femIntegration *theRule = theProblem->ruleEdge;
+    femDiscrete    *theSpace = theProblem->spaceEdge;
+    femGeo         *theGeometry = theProblem->geometry;
+    femNodes       *theNodes = theGeometry->theNodes;
+    femMesh        *theEdges = theGeometry->theEdges;
+    double x[2], y[2], phi[2];
+    int iBnd, iElem, iInteg, iEdge, i, j, map[2];
+    int nLocal = 2;
+    double *B = theSystem->B;
+
+    for (iBnd = 0; iBnd < theProblem->nBoundaryConditions; iBnd++) {
+        femBoundaryCondition *theCondition = theProblem->conditions[iBnd];
+        femBoundaryType type = theCondition->type;
+        femDomain *theDomain = theCondition->domain;
+        double value = theCondition->value;
+
+        if (type == NEUMANN_NORMAL) {
+            for (iEdge = 0; iEdge < theDomain->nElem; iEdge++) {
+                iElem = theDomain->elem[iEdge];
+
+                for (i = 0; i < nLocal; i++) {
+                    map[i] = theEdges->elem[iElem * nLocal + i];
+                    x[i] = theNodes->X[map[i]];
+                    y[i] = theNodes->Y[map[i]];
+                }
+
+                double dx = x[1] - x[0];
+                double dy = y[1] - y[0];
+                double norm = sqrt(dx*dx + dy*dy);
+                double nx = -dy / norm;
+                double ny =  dx / norm;
+
+                double fx = value * nx;
+                double fy = value * ny;
+
+                double jacobian = norm / 2.0;
+
+                for (iInteg = 0; iInteg < theRule->n; iInteg++) {
+                    double xsi = theRule->xsi[iInteg];
+                    double weight = theRule->weight[iInteg];
+                    femDiscretePhi(theSpace, xsi, phi);
+
+                    for (i = 0; i < theSpace->n; i++) {
+                        B[2*map[i]  ] += phi[i] * fx * jacobian * weight;
+                        B[2*map[i]+1] += phi[i] * fy * jacobian * weight;
+                    }
+                }
+            }
+        }
+    }
+}
  
  
  

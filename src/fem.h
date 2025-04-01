@@ -44,7 +44,7 @@
 
 typedef enum {FEM_NO,FEM_XNUM,FEM_YNUM} femRenumType;
 typedef enum {FEM_TRIANGLE,FEM_QUAD,FEM_EDGE} femElementType;
-typedef enum {DIRICHLET_X,DIRICHLET_Y,NEUMANN_X,NEUMANN_Y} femBoundaryType;
+typedef enum {DIRICHLET_X,DIRICHLET_Y,NEUMANN_X,NEUMANN_Y, NEUMANN_NORMAL} femBoundaryType;
 typedef enum {PLANAR_STRESS,PLANAR_STRAIN,AXISYM} femElasticCase;
 typedef enum {FEM_CG, FEM_CHOV, FEM_GAUSS} femSolverType;
 
