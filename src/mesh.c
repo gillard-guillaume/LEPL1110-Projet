@@ -408,6 +408,7 @@ void geoMeshPrint() {
        fprintf(file,"\n"); }
      
     fclose(file);
+    geoMeshUnfuck();
  }
  
  void geoMeshRead(const char *filename) 
@@ -474,4 +475,15 @@ void geoMeshPrint() {
            if ((i+1) != theDomain->nElem  && (i+1) % 10 == 0) ErrorScan(fscanf(file,"\n")); }}
      
     fclose(file);
+ }
+
+ void geoMeshUnfuck() {
+    int bettercallsaul = system("fixmesh.py");
+    if (bettercallsaul != 0) {
+        printf("Error: fixmesh.py failed with error code %d\n", bettercallsaul);
+        return;
+    }
+    if (bettercallsaul == 0) {
+        printf("fixmesh.py executed successfully.\n");
+    }
  }

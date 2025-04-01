@@ -1,29 +1,28 @@
+/*
+ *  main.c
+ *  Library for EPL1110 : Finite Elements for dummies
+ *  Elasticite lineaire plane
+ *
+ *  Copyright (C) 2024 UCL-IMMC : Vincent Legat
+ *  All rights reserved.
+ *
+ */
+ 
 #include <main.h>
 
-int main(int argc, char *argv[]) {
-    int ierr;
-    
-    if (argc != 5){
-        printf("Usage: %s <R> <mu_y> <mu_x> <N>\n", argv[0]);
-        printf("  R     = Circle radius (should be >1)\n");
-        printf("  mu_x  = X offset of the circle center\n");
-        printf("  mu_y  = Y offset of the circle center\n");
-        printf("  N     = Number of points on the circle\n");
-        return 1;
-    }
 
-    // Reading input arguments
-    double R = atof(argv[1]);
-    double mu_x = atof(argv[2]);
-    double mu_y = atof(argv[3]);
-    int N = atoi(argv[4]);
 
-    // Checking the input arguments
-    if (R <= 1.0 || N < 3) {
-        printf("Error: R must be >1 and N must be at least 3.\n"); // With R=1 for some angle the joukowsky transformation will fail
-        return 1;
-    }
+int main(void)
+{  
+    printf("\n\n    V : Mesh and displacement norm \n");
+    printf("    D : Domains \n");
+    printf("    N : Next domain highlighted\n\n\n");
 
+    double R = 1.2;
+    double mu_x = -0.1;
+    double mu_y = 0.1;
+    int N = 100;
+       
     geoInitialize();
     femGeo* theGeometry = geoGetGeometry();    
     theGeometry->h            =  0.1;  
@@ -41,119 +40,118 @@ int main(int argc, char *argv[]) {
     theGeometry->hCircle3     = theGeometry->h;
 
     theGeometry->elementType  = FEM_TRIANGLE;
+   
+    clock_t start = clock();
 
-    // Generating Joukowsky airfoil and circles points
-    printf("Generating Joukowsky airfoil and circles points...\n");
-    if (joukowsky(theGeometry) != 0) {
-        printf("Error: Joukowsky airfoil and circles generation failed.\n");
-        return 1;
-    }
-    printf("Joukowsky airfoil and circles points generated successfully.\n");
+// geoMeshGenerate();
+// geoMeshImport();
+// geoSetDomainName(0,"Circle1");
+// geoSetDomainName(1,"Foil");
+// geoSetDomainName(2,"Circle2");
+    // geoSetDomainName(3,"Circle3");
+    // geoMeshWrite("../data/mesh.txt");
+    geoMeshRead("../data/mesh.txt");
 
+    printf("Mesh generated in %f seconds\n", (double)(clock() - start) / CLOCKS_PER_SEC);
+            
+//
+//  -2- Creation probleme 
+//
+    // Aluminium 7075-T6  
+    double E   = 71.7e9;
+    double nu  = 0.33;
+    double rho = 2.810e3; 
+    double g   = 9.81 * 1;
 
-    printf("Generating wing mesh...\n");
-    if (geoMeshGenerate() != 0) {
-        printf("Error: Mesh generation failed.\n");
-        return 1;
-    }
-    printf("Mesh generated successfully.\n");
+    start = clock();
+    femRenumType renumType = FEM_XNUM;
+    femSolverType solverType = FEM_CHOV;
 
-    // Save the mesh to a file
-    gmshWrite("../data/wing.msh", &ierr);
-    if (ierr) {
-        printf("Error: Could not write mesh file.\n");
-        return 1;
-    }
-    printf("Mesh saved to '../data/wing.msh'\n");
+    femProblem* theProblem = femElasticityCreate(theGeometry,E,nu,rho,g,PLANAR_STRAIN, renumType);
+    femElasticityAddBoundaryCondition(theProblem, "Foil", NEUMANN_Y, 1e4);
+    femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_X,0.0);
+    femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_Y,0.0);
+    femElasticityAddBoundaryCondition(theProblem,"Circle2",DIRICHLET_X,0.0);
+    femElasticityAddBoundaryCondition(theProblem,"Circle2",DIRICHLET_Y,0.0);
+    femElasticityAddBoundaryCondition(theProblem,"Circle3",DIRICHLET_X,0.0);
+    femElasticityAddBoundaryCondition(theProblem,"Circle3",DIRICHLET_Y,0.0);
 
-
-    geoMeshImport();
-
-    gmshFltkInitialize(&ierr);
-    gmshFltkRun(&ierr);
+    femElasticityPrint(theProblem);
+    printf("Problem created in %f seconds\n", (double)(clock() - start) / CLOCKS_PER_SEC);
+    start = clock();
+    double *theSoluce = femElasticitySolve(theProblem, solverType);
+    printf("Problem solved in %f seconds\n", (double)(clock() - start) / CLOCKS_PER_SEC);
 
 //
-//  -3- Champ de la taille de r�f�rence du maillage
+//  -3- Deformation du maillage pour le plot final
+//      Creation du champ de la norme du deplacement
 //
-
-    double *meshSizeField = malloc(theGeometry->theNodes->nNodes*sizeof(double));
+    
     femNodes *theNodes = theGeometry->theNodes;
-    for(int i=0; i < theNodes->nNodes; ++i)
-        meshSizeField[i] = geoSize(theNodes->X[i], theNodes->Y[i]);
-    double hMin = femMin(meshSizeField,theNodes->nNodes);  
-    double hMax = femMax(meshSizeField,theNodes->nNodes);  
-    printf(" ==== Global requested h : %14.7e \n",theGeometry->h);
-    printf(" ==== Minimum h          : %14.7e \n",hMin);
-    printf(" ==== Maximum h          : %14.7e \n",hMax);
- 
+    double deformationFactor = 1e5;
+    double *normDisplacement = malloc(theNodes->nNodes * sizeof(double));
+    
+    for (int i=0; i<theNodes->nNodes; i++){
+        theNodes->X[i] += theSoluce[2*i+0]*deformationFactor;
+        theNodes->Y[i] += theSoluce[2*i+1]*deformationFactor;
+        normDisplacement[i] = sqrt(theSoluce[2*i+0]*theSoluce[2*i+0] + 
+                                theSoluce[2*i+1]*theSoluce[2*i+1]); }
+
+    double hMin = femMin(normDisplacement,theNodes->nNodes);  
+    double hMax = femMax(normDisplacement,theNodes->nNodes);  
+    printf(" ==== Minimum displacement          : %14.7e \n",hMin);
+    printf(" ==== Maximum displacement          : %14.7e \n",hMax);
+
 //
 //  -4- Visualisation du maillage
 //  
     
-    int mode = 1; // Change mode by pressing "j", "k", "l"
+    int mode = 1; 
     int domain = 0;
     int freezingButton = FALSE;
     double t, told = 0;
-    char theMessage[256];
-    double pos[2] = {20,460};
- 
- 
-    GLFWwindow* window = glfemInit("EPL1110 : Mesh generation ");
+    char theMessage[MAXNAME];
+
+
+    GLFWwindow* window = glfemInit("EPL1110 : Linear elasticity ");
     glfwMakeContextCurrent(window);
 
     do {
         int w,h;
-    
-    
         glfwGetFramebufferSize(window,&w,&h);
         glfemReshapeWindows(theGeometry->theNodes,w,h);
 
         t = glfwGetTime();  
-    //    glfemChangeState(&mode, theMeshes->nMesh);
         if (glfwGetKey(window,'D') == GLFW_PRESS) { mode = 0;}
         if (glfwGetKey(window,'V') == GLFW_PRESS) { mode = 1;}
         if (glfwGetKey(window,'N') == GLFW_PRESS && freezingButton == FALSE) { domain++; freezingButton = TRUE; told = t;}
-
         
         if (t-told > 0.5) {freezingButton = FALSE; }
-            
-        
-        
-         
         if (mode == 1) {
-            glfemPlotField(theGeometry->theElements, meshSizeField);
+            glfemPlotField(theGeometry->theElements,normDisplacement);
             glfemPlotMesh(theGeometry->theElements); 
             sprintf(theMessage, "Number of elements : %d ",theGeometry->theElements->nElem);
- 
-            
-            glColor3f(1.0,0.0,0.0); glfemMessage(theMessage);
- 
-            
-            
-            }
+            glColor3f(1.0,0.0,0.0); glfemMessage(theMessage); }
         if (mode == 0) {
             domain = domain % theGeometry->nDomains;
             glfemPlotDomain( theGeometry->theDomains[domain]); 
-            
-            
-            
             sprintf(theMessage, "%s : %d ",theGeometry->theDomains[domain]->name,domain);
- 
+            glColor3f(1.0,0.0,0.0); glfemMessage(theMessage);  }
             
-            glColor3f(1.0,0.0,0.0); glfemMessage(theMessage);
-            }
-            
-         glfwSwapBuffers(window);
-         glfwPollEvents();
+        glfwSwapBuffers(window);
+        glfwPollEvents();
     } while( glfwGetKey(window,GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-             glfwWindowShouldClose(window) != 1 );
+            glfwWindowShouldClose(window) != 1 );
             
     // Check if the ESC key was pressed or the window was closed
 
-    free(meshSizeField);  
+    free(normDisplacement);
+    femElasticityFree(theProblem) ; 
     geoFinalize();
     glfwTerminate(); 
     
     exit(EXIT_SUCCESS);
     return 0;  
-}
+ }
+ 
+  
