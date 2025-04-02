@@ -38,5 +38,7 @@ void geoMeshWrite(const char *filename);
 
 void geoMeshRead(const char *filename);
 
+void geoMeshUnfuck();
+
 
 #endif
