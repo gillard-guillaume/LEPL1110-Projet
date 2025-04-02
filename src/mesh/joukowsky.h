@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <complex.h>
-#include "fem.h"
+# include "../fem/fem.h"
 
 #ifndef M_PI
     #define M_PI 3.14159265358979323846

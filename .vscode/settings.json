@@ -3,6 +3,8 @@
         "mesh.h": "c",
         "gmsh.h": "c",
         "main.h": "c",
-        "gmshc.h": "c"
+        "gmshc.h": "c",
+        "fem.h": "c",
+        "joukowsky.h": "c"
     }
 }

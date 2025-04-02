@@ -83,78 +83,126 @@ CMakeFiles/joukowskyFoil.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/main.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/main.c -o CMakeFiles/joukowskyFoil.dir/src/main.c.s
 
-CMakeFiles/joukowskyFoil.dir/src/mesh.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
-CMakeFiles/joukowskyFoil.dir/src/mesh.c.o: ../src/mesh.c
-CMakeFiles/joukowskyFoil.dir/src/mesh.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/joukowskyFoil.dir/src/mesh.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/mesh.c.o -MF CMakeFiles/joukowskyFoil.dir/src/mesh.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/mesh.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh.c
+CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
+CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o: ../src/mesh/mesh.c
+CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o -MF CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh/mesh.c
 
-CMakeFiles/joukowskyFoil.dir/src/mesh.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/mesh.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh.c > CMakeFiles/joukowskyFoil.dir/src/mesh.c.i
+CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh/mesh.c > CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.i
 
-CMakeFiles/joukowskyFoil.dir/src/mesh.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/mesh.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh.c -o CMakeFiles/joukowskyFoil.dir/src/mesh.c.s
+CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh/mesh.c -o CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.s
 
-CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
-CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o: ../src/joukowsky.c
-CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o -MF CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/joukowsky.c
+CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
+CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o: ../src/mesh/joukowsky.c
+CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o -MF CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh/joukowsky.c
 
-CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/joukowsky.c > CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.i
+CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh/joukowsky.c > CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.i
 
-CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/joukowsky.c -o CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.s
+CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/mesh/joukowsky.c -o CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.s
 
-CMakeFiles/joukowskyFoil.dir/src/fem.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
-CMakeFiles/joukowskyFoil.dir/src/fem.c.o: ../src/fem.c
-CMakeFiles/joukowskyFoil.dir/src/fem.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/joukowskyFoil.dir/src/fem.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/fem.c.o -MF CMakeFiles/joukowskyFoil.dir/src/fem.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/fem.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/fem.c
+CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
+CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o: ../src/fem/fem.c
+CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o -MF CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/fem/fem.c
 
-CMakeFiles/joukowskyFoil.dir/src/fem.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/fem.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/fem.c > CMakeFiles/joukowskyFoil.dir/src/fem.c.i
+CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/fem/fem.c > CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.i
 
-CMakeFiles/joukowskyFoil.dir/src/fem.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/fem.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/fem.c -o CMakeFiles/joukowskyFoil.dir/src/fem.c.s
+CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/fem/fem.c -o CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.s
 
-CMakeFiles/joukowskyFoil.dir/src/glfem.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
-CMakeFiles/joukowskyFoil.dir/src/glfem.c.o: ../src/glfem.c
-CMakeFiles/joukowskyFoil.dir/src/glfem.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/joukowskyFoil.dir/src/glfem.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/glfem.c.o -MF CMakeFiles/joukowskyFoil.dir/src/glfem.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/glfem.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/glfem.c
+CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
+CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o: ../src/gl/glfem.c
+CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o -MF CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/gl/glfem.c
 
-CMakeFiles/joukowskyFoil.dir/src/glfem.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/glfem.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/glfem.c > CMakeFiles/joukowskyFoil.dir/src/glfem.c.i
+CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/gl/glfem.c > CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.i
 
-CMakeFiles/joukowskyFoil.dir/src/glfem.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/glfem.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/glfem.c -o CMakeFiles/joukowskyFoil.dir/src/glfem.c.s
+CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/gl/glfem.c -o CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.s
+
+CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
+CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o: ../src/solver/renum.c
+CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o -MF CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/solver/renum.c
+
+CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/solver/renum.c > CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.i
+
+CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/solver/renum.c -o CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.s
+
+CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
+CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o: ../src/solver/solver.c
+CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o -MF CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/solver/solver.c
+
+CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/solver/solver.c > CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.i
+
+CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/solver/solver.c -o CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.s
+
+CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o: CMakeFiles/joukowskyFoil.dir/flags.make
+CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o: ../src/utils/messages.c
+CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o: CMakeFiles/joukowskyFoil.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o -MF CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o.d -o CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o -c /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/utils/messages.c
+
+CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/utils/messages.c > CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.i
+
+CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/src/utils/messages.c -o CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.s
 
 # Object files for target joukowskyFoil
 joukowskyFoil_OBJECTS = \
 "CMakeFiles/joukowskyFoil.dir/src/main.c.o" \
-"CMakeFiles/joukowskyFoil.dir/src/mesh.c.o" \
-"CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o" \
-"CMakeFiles/joukowskyFoil.dir/src/fem.c.o" \
-"CMakeFiles/joukowskyFoil.dir/src/glfem.c.o"
+"CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o" \
+"CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o" \
+"CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o" \
+"CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o" \
+"CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o" \
+"CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o" \
+"CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o"
 
 # External object files for target joukowskyFoil
 joukowskyFoil_EXTERNAL_OBJECTS =
 
 joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/main.c.o
-joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/mesh.c.o
-joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/joukowsky.c.o
-joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/fem.c.o
-joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/glfem.c.o
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o
+joukowskyFoil: CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o
 joukowskyFoil: CMakeFiles/joukowskyFoil.dir/build.make
 joukowskyFoil: glfw/src/libglfw3.a
 joukowskyFoil: /usr/lib/x86_64-linux-gnu/libGL.so
@@ -162,7 +210,7 @@ joukowskyFoil: ../gmsh/gmsh-4.13.1-Linux64-sdk/lib/libgmsh.so
 joukowskyFoil: /usr/lib/x86_64-linux-gnu/librt.a
 joukowskyFoil: /usr/lib/x86_64-linux-gnu/libm.so
 joukowskyFoil: CMakeFiles/joukowskyFoil.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable joukowskyFoil"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable joukowskyFoil"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/joukowskyFoil.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

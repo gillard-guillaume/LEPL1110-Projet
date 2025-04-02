@@ -1,4 +1,4 @@
-# include "fem.h"
+# include "../fem/fem.h"
 
 double norm(double *v, int n){
     double sum = 0;

@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <complex.h>
-# include "fem.h"
+# include "../fem/fem.h"
 #include "joukowsky.h"
 #include "../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h"
 

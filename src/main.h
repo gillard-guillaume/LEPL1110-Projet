@@ -3,10 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "joukowsky.h"
-#include "fem.h"
-#include "mesh.h"
-#include "glfem.h"
+#include "fem/fem.h"
+#include "mesh/joukowsky.h"
+#include "mesh/mesh.h"
+#include "gl/glfem.h"
 #include "../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h"
 
 int main(void);

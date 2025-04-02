@@ -50,7 +50,7 @@ include_directories(${GMSH_INCLUDE_DIR})
 
 # link the aforementioned libraries
 include_directories(${EXEC_NAME} src)
-add_executable(${EXEC_NAME} src/main.c src/mesh.c src/joukowsky.c src/fem.c src/glfem.c) 
+add_executable(${EXEC_NAME} src/main.c src/mesh/mesh.c src/mesh/joukowsky.c src/fem/fem.c src/gl/glfem.c src/solver/renum.c src/solver/solver.c src/utils/messages.c) 
 target_link_libraries(${EXEC_NAME} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
 
 if(APPLE)

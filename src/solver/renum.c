@@ -1,4 +1,4 @@
-# include "fem.h"
+# include "../fem/fem.h"
 
 double *toCompare;
 int compareNodePosition(const void *a, const void *b){
