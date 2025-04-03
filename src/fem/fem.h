@@ -50,6 +50,13 @@
  
  
  typedef struct {
+     int n;          // Taille de la matrice (n x n)
+     int *row_ptr;   // Indices de début de chaque ligne dans col_idx et values
+     int *col_idx;   // Indices des colonnes des éléments non nuls
+     double *values; // Valeurs non nulles
+ } CSRMatrix;
+ 
+ typedef struct {
      int nNodes;
      double *X;
      double *Y;
@@ -155,10 +162,9 @@
                                        femElasticCase iCase, femRenumType renumType);
  void                femElasticityFree(femProblem *theProblem);
  void                femElasticityPrint(femProblem *theProblem);
- void                femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value, double (*profile)(double x, double y));
+ void                femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value,  double (*profile)(double x, double y));
  void                femElasticityAssembleElements(femProblem *theProblem);
  void                femElasticityAssembleNeumann(femProblem *theProblem);
- void                femElasticityAssembleNeumannNormal(femProblem *theProblem);
  double*             femElasticitySolve(femProblem *theProblem, femSolverType solverType);
  double*             femElasticityForces(femProblem *theProblem);
  double              femElasticityIntegrate(femProblem *theProblem, double (*f));
@@ -182,7 +188,7 @@
  void                femFullSystemPrint(femFullSystem* mySystem);
  void                femFullSystemInit(femFullSystem* mySystem);
  void                femFullSystemAlloc(femFullSystem* mySystem, int size);
- double*             femFullSystemEliminate(femFullSystem* mySystem, femSolverType solverType);
+ double*             femFullSystemEliminate(femFullSystem *mySystem, femSolverType solverType);
  void                femFullSystemConstrain(femFullSystem* mySystem, int myNode, double value);
  
  double              femMin(double *x, int n);
@@ -200,7 +206,12 @@
  int                 femMeshComputeBand(femMesh *theMesh);
  void                femMeshRenumber(femMesh *theMesh, femRenumType renumType);
  
- double              foilProfile(double x, double y);
- 
+ void                csr_matvec(const CSRMatrix *A, const double *x, double *Ax);
+ CSRMatrix*          dense_to_csr(double **full, int n);
+ void                conjugateGradient(double **A_dense, double *b, int n);
+ void                free_csr(CSRMatrix *A);
+ int                 NonZero(double **A, int n);
+
+ double foilProfile(double x, double y);   
  
  #endif // _FEM_H_
