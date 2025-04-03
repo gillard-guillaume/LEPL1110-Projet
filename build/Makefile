@@ -162,17 +162,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named joukowskyFoil
+# Target rules for targets named myFem
 
 # Build rule for target.
-joukowskyFoil: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 joukowskyFoil
-.PHONY : joukowskyFoil
+myFem: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myFem
+.PHONY : myFem
 
 # fast build rule for target.
-joukowskyFoil/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/build
-.PHONY : joukowskyFoil/fast
+myFem/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/build
+.PHONY : myFem/fast
 
 #=============================================================================
 # Target rules for targets named run
@@ -186,6 +186,32 @@ run: cmake_check_build_system
 run/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
 .PHONY : run/fast
+
+#=============================================================================
+# Target rules for targets named genMesh
+
+# Build rule for target.
+genMesh: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 genMesh
+.PHONY : genMesh
+
+# fast build rule for target.
+genMesh/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/build
+.PHONY : genMesh/fast
+
+#=============================================================================
+# Target rules for targets named mesh
+
+# Build rule for target.
+mesh: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mesh
+.PHONY : mesh
+
+# fast build rule for target.
+mesh/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mesh.dir/build.make CMakeFiles/mesh.dir/build
+.PHONY : mesh/fast
 
 #=============================================================================
 # Target rules for targets named uninstall
@@ -231,7 +257,8 @@ src/fem/fem.o: src/fem/fem.c.o
 
 # target to build an object file
 src/fem/fem.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/fem/fem.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/fem/fem.c.o
 .PHONY : src/fem/fem.c.o
 
 src/fem/fem.i: src/fem/fem.c.i
@@ -239,7 +266,8 @@ src/fem/fem.i: src/fem/fem.c.i
 
 # target to preprocess a source file
 src/fem/fem.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/fem/fem.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/fem/fem.c.i
 .PHONY : src/fem/fem.c.i
 
 src/fem/fem.s: src/fem/fem.c.s
@@ -247,7 +275,8 @@ src/fem/fem.s: src/fem/fem.c.s
 
 # target to generate assembly for a file
 src/fem/fem.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/fem/fem.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/fem/fem.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/fem/fem.c.s
 .PHONY : src/fem/fem.c.s
 
 src/gl/glfem.o: src/gl/glfem.c.o
@@ -255,7 +284,7 @@ src/gl/glfem.o: src/gl/glfem.c.o
 
 # target to build an object file
 src/gl/glfem.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/gl/glfem.c.o
 .PHONY : src/gl/glfem.c.o
 
 src/gl/glfem.i: src/gl/glfem.c.i
@@ -263,7 +292,7 @@ src/gl/glfem.i: src/gl/glfem.c.i
 
 # target to preprocess a source file
 src/gl/glfem.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/gl/glfem.c.i
 .PHONY : src/gl/glfem.c.i
 
 src/gl/glfem.s: src/gl/glfem.c.s
@@ -271,7 +300,7 @@ src/gl/glfem.s: src/gl/glfem.c.s
 
 # target to generate assembly for a file
 src/gl/glfem.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/gl/glfem.c.s
 .PHONY : src/gl/glfem.c.s
 
 src/main.o: src/main.c.o
@@ -279,7 +308,7 @@ src/main.o: src/main.c.o
 
 # target to build an object file
 src/main.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/main.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/main.c.o
 .PHONY : src/main.c.o
 
 src/main.i: src/main.c.i
@@ -287,7 +316,7 @@ src/main.i: src/main.c.i
 
 # target to preprocess a source file
 src/main.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/main.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/main.c.i
 .PHONY : src/main.c.i
 
 src/main.s: src/main.c.s
@@ -295,7 +324,7 @@ src/main.s: src/main.c.s
 
 # target to generate assembly for a file
 src/main.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/main.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/main.c.s
 .PHONY : src/main.c.s
 
 src/mesh/generateMesh.o: src/mesh/generateMesh.c.o
@@ -303,7 +332,7 @@ src/mesh/generateMesh.o: src/mesh/generateMesh.c.o
 
 # target to build an object file
 src/mesh/generateMesh.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/generateMesh.c.o
 .PHONY : src/mesh/generateMesh.c.o
 
 src/mesh/generateMesh.i: src/mesh/generateMesh.c.i
@@ -311,7 +340,7 @@ src/mesh/generateMesh.i: src/mesh/generateMesh.c.i
 
 # target to preprocess a source file
 src/mesh/generateMesh.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/generateMesh.c.i
 .PHONY : src/mesh/generateMesh.c.i
 
 src/mesh/generateMesh.s: src/mesh/generateMesh.c.s
@@ -319,7 +348,7 @@ src/mesh/generateMesh.s: src/mesh/generateMesh.c.s
 
 # target to generate assembly for a file
 src/mesh/generateMesh.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/generateMesh.c.s
 .PHONY : src/mesh/generateMesh.c.s
 
 src/mesh/joukowsky.o: src/mesh/joukowsky.c.o
@@ -327,7 +356,8 @@ src/mesh/joukowsky.o: src/mesh/joukowsky.c.o
 
 # target to build an object file
 src/mesh/joukowsky.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/joukowsky.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/joukowsky.c.o
 .PHONY : src/mesh/joukowsky.c.o
 
 src/mesh/joukowsky.i: src/mesh/joukowsky.c.i
@@ -335,7 +365,8 @@ src/mesh/joukowsky.i: src/mesh/joukowsky.c.i
 
 # target to preprocess a source file
 src/mesh/joukowsky.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/joukowsky.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/joukowsky.c.i
 .PHONY : src/mesh/joukowsky.c.i
 
 src/mesh/joukowsky.s: src/mesh/joukowsky.c.s
@@ -343,7 +374,8 @@ src/mesh/joukowsky.s: src/mesh/joukowsky.c.s
 
 # target to generate assembly for a file
 src/mesh/joukowsky.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/joukowsky.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/joukowsky.c.s
 .PHONY : src/mesh/joukowsky.c.s
 
 src/mesh/mesh.o: src/mesh/mesh.c.o
@@ -351,7 +383,8 @@ src/mesh/mesh.o: src/mesh/mesh.c.o
 
 # target to build an object file
 src/mesh/mesh.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/mesh.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/mesh.c.o
 .PHONY : src/mesh/mesh.c.o
 
 src/mesh/mesh.i: src/mesh/mesh.c.i
@@ -359,7 +392,8 @@ src/mesh/mesh.i: src/mesh/mesh.c.i
 
 # target to preprocess a source file
 src/mesh/mesh.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/mesh.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/mesh.c.i
 .PHONY : src/mesh/mesh.c.i
 
 src/mesh/mesh.s: src/mesh/mesh.c.s
@@ -367,63 +401,17 @@ src/mesh/mesh.s: src/mesh/mesh.c.s
 
 # target to generate assembly for a file
 src/mesh/mesh.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/mesh.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/mesh.c.s
 .PHONY : src/mesh/mesh.c.s
-
-src/solver/renum.o: src/solver/renum.c.o
-.PHONY : src/solver/renum.o
-
-# target to build an object file
-src/solver/renum.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.o
-.PHONY : src/solver/renum.c.o
-
-src/solver/renum.i: src/solver/renum.c.i
-.PHONY : src/solver/renum.i
-
-# target to preprocess a source file
-src/solver/renum.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.i
-.PHONY : src/solver/renum.c.i
-
-src/solver/renum.s: src/solver/renum.c.s
-.PHONY : src/solver/renum.s
-
-# target to generate assembly for a file
-src/solver/renum.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/solver/renum.c.s
-.PHONY : src/solver/renum.c.s
-
-src/solver/solver.o: src/solver/solver.c.o
-.PHONY : src/solver/solver.o
-
-# target to build an object file
-src/solver/solver.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.o
-.PHONY : src/solver/solver.c.o
-
-src/solver/solver.i: src/solver/solver.c.i
-.PHONY : src/solver/solver.i
-
-# target to preprocess a source file
-src/solver/solver.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.i
-.PHONY : src/solver/solver.c.i
-
-src/solver/solver.s: src/solver/solver.c.s
-.PHONY : src/solver/solver.s
-
-# target to generate assembly for a file
-src/solver/solver.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/solver/solver.c.s
-.PHONY : src/solver/solver.c.s
 
 src/utils/messages.o: src/utils/messages.c.o
 .PHONY : src/utils/messages.o
 
 # target to build an object file
 src/utils/messages.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/utils/messages.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/utils/messages.c.o
 .PHONY : src/utils/messages.c.o
 
 src/utils/messages.i: src/utils/messages.c.i
@@ -431,7 +419,8 @@ src/utils/messages.i: src/utils/messages.c.i
 
 # target to preprocess a source file
 src/utils/messages.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/utils/messages.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/utils/messages.c.i
 .PHONY : src/utils/messages.c.i
 
 src/utils/messages.s: src/utils/messages.c.s
@@ -439,7 +428,8 @@ src/utils/messages.s: src/utils/messages.c.s
 
 # target to generate assembly for a file
 src/utils/messages.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/utils/messages.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/utils/messages.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/utils/messages.c.s
 .PHONY : src/utils/messages.c.s
 
 # Help Target
@@ -454,11 +444,13 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... mesh"
 	@echo "... run"
 	@echo "... uninstall"
 	@echo "... update_mappings"
+	@echo "... genMesh"
 	@echo "... glfw"
-	@echo "... joukowskyFoil"
+	@echo "... myFem"
 	@echo "... src/fem/fem.o"
 	@echo "... src/fem/fem.i"
 	@echo "... src/fem/fem.s"
@@ -477,12 +469,6 @@ help:
 	@echo "... src/mesh/mesh.o"
 	@echo "... src/mesh/mesh.i"
 	@echo "... src/mesh/mesh.s"
-	@echo "... src/solver/renum.o"
-	@echo "... src/solver/renum.i"
-	@echo "... src/solver/renum.s"
-	@echo "... src/solver/solver.o"
-	@echo "... src/solver/solver.i"
-	@echo "... src/solver/solver.s"
 	@echo "... src/utils/messages.o"
 	@echo "... src/utils/messages.i"
 	@echo "... src/utils/messages.s"

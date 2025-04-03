@@ -135,20 +135,8 @@ typedef struct {
     femFullSystem *system;
 } femProblem;
 
-
-void                geoInitialize();
-femGeo*             geoGetGeometry();
-double              geoSize(double x, double y);
-double              geoSizeDefault(double x, double y);
-void                geoSetSizeCallback(double (*geoSize)(double x, double y));
-int                 geoMeshGenerate();
-void                geoMeshImport();
-void                geoMeshPrint();
-void                geoMeshWrite(const char *filename);
-void                geoMeshRead(const char *filename);
-void                geoSetDomainName(int iDomain, char *name);
-int                 geoGetDomain(char *name);
-void                geoFinalize();
+int geoGetDomain(char *name);
+void geoSetDomainName(int iDomain, char *name);
 
 femProblem*         femElasticityCreate(femGeo* theGeometry, 
                                       double E, double nu, double rho, double g, 

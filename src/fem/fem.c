@@ -1,3 +1,4 @@
+
 /*
  *  fem.c
  *  Library for LEPL1110 : Finite Elements for dummies
@@ -20,6 +21,8 @@
  static const double _gaussEdge2Weight[2] = { 1.000000000000000, 1.000000000000000};
  double **A_copy = NULL;
  double *B_copy  = NULL;
+ 
+ 
  
  femIntegration *femIntegrationCreate(int n, femElementType type)
  {
@@ -248,7 +251,11 @@
          printf(" :  %+.1e \n",B[i]); }
  }
  
- double* femFullSystemEliminate(femFullSystem *mySystem, femSolverType solver)
+ 
+
+ 
+ 
+ double* femFullSystemEliminate(femFullSystem *mySystem, femSolverType solverType)
  {
      double  **A, *B, factor;
      int     i, j, k, size;
@@ -257,31 +264,36 @@
      B    = mySystem->B;
      size = mySystem->size;
  
-     /* Gauss elimination */
+     if (solverType == FEM_GAUSS) gauss(A, B, size);
+     if (solverType == FEM_CHOV) cholevsky(A, B, size);
+     if (solverType == FEM_CG) conjugateGradient(A, B, size);
  
-     for (k=0; k < size; k++) {
-         if ( fabs(A[k][k]) <= 1e-16 ) {
-             printf("Pivot index %d  ",k);
-             printf("Pivot value %e  ",A[k][k]);
-             Error("Cannot eliminate with such a pivot"); }
+     return(mySystem->B);
  
-         for (i = k+1 ; i <  size; i++) {
-             factor = A[i][k] / A[k][k];
-             for (j = k+1 ; j < size; j++) 
-                 A[i][j] = A[i][j] - A[k][j] * factor;
-             B[i] = B[i] - B[k] * factor; 
-         }
-     }
+ 
+     // for (k=0; k < size; k++) {
+     //     if ( fabs(A[k][k]) <= 1e-16 ) {
+     //         printf("Pivot index %d  ",k);
+     //         printf("Pivot value %e  ",A[k][k]);
+     //         Error("Cannot eliminate with such a pivot"); }
+ 
+     //     for (i = k+1 ; i <  size; i++) {
+     //         factor = A[i][k] / A[k][k];
+     //         for (j = k+1 ; j < size; j++) 
+     //             A[i][j] = A[i][j] - A[k][j] * factor;
+     //         B[i] = B[i] - B[k] * factor; 
+     //     }
+     // }
      
-     /* Back-substitution */
+     // /* Back-substitution */
      
-     for (i = size-1; i >= 0 ; i--) {
-         factor = 0;
-         for (j = i+1 ; j < size; j++)
-             factor += A[i][j] * B[j];
-         B[i] = ( B[i] - factor)/A[i][i]; }
- 
-     return(mySystem->B);    
+     // for (i = size-1; i >= 0 ; i--) {
+     //     factor = 0;
+     //     for (j = i+1 ; j < size; j++)
+     //         factor += A[i][j] * B[j];
+     //     B[i] = ( B[i] - factor)/A[i][i]; }
+     
+     // return(mySystem->B);    
  }
  
  void  femFullSystemConstrain(femFullSystem *mySystem, 
@@ -346,11 +358,8 @@
      theProblem->system   = femFullSystemCreate(size);
      
      femMesh *theMesh = theGeometry->theElements;
-     for (int i=0; i < 10; i++) printf("%d ",theMesh->nodes->number[i]);
      printf("\n");
      // femMeshRenumber(theMesh,renumType);
-     for (int i=0; i < 10; i++) printf("%d ",theMesh->nodes->number[i]);
- 
      return theProblem;
  }
  
@@ -463,7 +472,7 @@
      }
  }
  
-void femElasticityAssembleNeumann(femProblem *theProblem){
+ void femElasticityAssembleNeumann(femProblem *theProblem){
     femFullSystem  *theSystem = theProblem->system;
     femIntegration *theRule = theProblem->ruleEdge;
     femDiscrete    *theSpace = theProblem->spaceEdge;
@@ -567,8 +576,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
  
  
  
- double femMin(double *x, int n) 
- {
+ double femMin(double *x, int n) {
      double myMin = x[0];
      int i;
      for (i=1 ;i < n; i++) 
@@ -576,8 +584,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
      return myMin;
  }
  
- double femMax(double *x, int n) 
- {
+ double femMax(double *x, int n) {
      double myMax = x[0];
      int i;
      for (i=1 ;i < n; i++) 
@@ -585,14 +592,11 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
      return myMax;
  }
  
- double *femElasticitySolve(femProblem *theProblem, femSolverType FEM_GAUSS){
+ double *femElasticitySolve(femProblem *theProblem, femSolverType solver){
      femFullSystem *theSystem = theProblem->system;
      femFullSystemInit(theSystem);
-     printf("Problem initiated\n");
      femElasticityAssembleElements(theProblem);
-     printf("Elements assembled\n");
      femElasticityAssembleNeumann(theProblem);
-     printf("Neumann assembled\n");
      int size = theSystem->size;
      if (A_copy == NULL){
          A_copy = (double **) malloc(sizeof(double *) * size);
@@ -614,11 +618,8 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
      }
  
      printf("Solving the system\n");
-     femFullSystemEliminate(theSystem, FEM_GAUSS);
+     femFullSystemEliminate(theSystem, solver);
      printf("System solved\n");
-     // memcpy(theProblem->soluce, theSystem->B, theSystem->size * sizeof(double));
-     // printf("Solution copied\n");
-     // return theProblem->soluce;
      return theSystem->B;
  }
  
@@ -637,7 +638,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
          residuals[i] -= B_copy[i];
      }
  
-     for (int i = 0; i < size; i++) { free(A_copy[i]); A_copy[i] = NULL;}
+     for (int i = 0; i < size; i++) {free(A_copy[i]); A_copy[i] = NULL;}
      free(A_copy); free(B_copy);
      A_copy = NULL; B_copy = NULL;
  

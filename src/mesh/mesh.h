@@ -6,7 +6,7 @@
 # include <complex.h>
 # include "../fem/fem.h"
 #include "joukowsky.h"
-#include "../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h"
+#include "gmshc.h"
 
 femGeo *geoGetGeometry();
 
@@ -18,7 +18,7 @@ double interpolationH(double x, double x0, double x1, double h0, double h);
 
 double geoSize(double x, double y);
 
-int geoMeshGenerate();
+void geoMeshGenerate();
 
 void geoInitialize();
 

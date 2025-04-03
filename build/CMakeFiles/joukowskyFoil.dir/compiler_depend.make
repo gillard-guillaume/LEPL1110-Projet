@@ -245,6 +245,7 @@ CMakeFiles/joukowskyFoil.dir/src/main.c.o: ../src/main.c \
   ../src/mesh/joukowsky.h \
   ../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h \
   ../src/mesh/generateMesh.h \
+  ../src/mesh/mesh.h \
   ../src/gl/glfem.h \
   ../glfw/include/GLFW/glfw3.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h \
@@ -333,6 +334,10 @@ CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.o: ../src/mesh/generateMesh
   /usr/include/complex.h \
   /usr/include/x86_64-linux-gnu/bits/mathdef.h \
   /usr/include/x86_64-linux-gnu/bits/cmathcalls.h \
+  ../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h \
+  ../src/mesh/mesh.h \
+  ../src/fem/fem.h \
+  ../src/mesh/joukowsky.h \
   ../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h
 
 CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o: ../src/mesh/joukowsky.c \

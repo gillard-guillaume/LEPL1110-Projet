@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.6)
 project(myFemProject)
 
-set(EXEC_NAME joukowskyFoil)
+set(EXEC_NAME myFem)
+set(MESH genMesh)
 
 # Set GMSH Version : example gmsh-4.12.2 -> GMSH_VERSION=gmsh-4.12, GMSH_MINOR=2
 set(GMSH_VERSION gmsh-4.13)
 set(GMSH_MINOR 1)
+
 
 # OpenGL
 find_package(OpenGL REQUIRED)
@@ -30,8 +32,8 @@ endif(MSVC OR MSYS OR MINGW)
 
 if(APPLE)
     if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm64")
-        set(GMSH_LIBRARY ${CMAKE_SOURCE_DIR}/gmsh/${GMSH_VERSION}.${GMSH_MINOR}-MacOSARM-sdk/lib/libgmsh.dylib)
-        set(GMSH_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/gmsh/${GMSH_VERSION}.${GMSH_MINOR}-MacOSARM-sdk/include)
+        set(GMSH_LIBRARY /opt/homebrew/lib/libgmsh.dylib)
+        set(GMSH_INCLUDE_DIR /opt/homebrew/include)
     else()    
         set(GMSH_LIBRARY ${CMAKE_SOURCE_DIR}/gmsh/${GMSH_VERSION}.${GMSH_MINOR}-MacOSX-sdk/lib/libgmsh.dylib)
         set(GMSH_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/gmsh/${GMSH_VERSION}.${GMSH_MINOR}-MacOSX-sdk/include)
@@ -49,8 +51,13 @@ include_directories(${GMSH_INCLUDE_DIR})
 
 
 # link the aforementioned libraries
-include_directories(${EXEC_NAME} src)
-add_executable(${EXEC_NAME} src/main.c src/mesh/mesh.c src/mesh/joukowsky.c src/mesh/generateMesh.c src/fem/fem.c src/gl/glfem.c src/solver/renum.c src/solver/solver.c src/utils/messages.c) 
+add_executable(${EXEC_NAME} src/fem/fem.c 
+                            src/gl/glfem.c 
+                            src/utils/messages.c 
+                            src/mesh/mesh.c 
+                            src/mesh/joukowsky.c
+                            src/main.c)
+
 target_link_libraries(${EXEC_NAME} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
 
 if(APPLE)
@@ -67,4 +74,27 @@ endif()
 target_compile_definitions(${EXEC_NAME} PRIVATE graphic)
 
 # add a custom target so we can do make run directly
-add_custom_target(run COMMAND ./${EXEC_NAME} 1.2 -0.1 0.1 100 DEPENDS ${EXEC_NAME} COMMENT "./${EXEC_NAME}")
+add_custom_target(run COMMAND ${EXEC_NAME} DEPENDS ${EXEC_NAME} COMMENT "./${EXEC_NAME}")
+
+# Generation of the mesh
+add_executable(${MESH} src/fem/fem.c 
+                            src/utils/messages.c 
+                            src/mesh/mesh.c 
+                            src/mesh/joukowsky.c 
+                            src/mesh/generateMesh.c)
+
+target_link_libraries(${MESH} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
+
+if(APPLE)
+    target_compile_options(${MESH} PRIVATE "-Wdeprecated-declarations")
+    target_compile_definitions(${MESH} PRIVATE -D GL_SILENCE_DEPRECATION)
+endif()
+
+if (MSVC)
+    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${MESH})
+    target_compile_options(${MESH} PRIVATE "/W2")
+endif()
+
+target_compile_definitions(${MESH} PRIVATE graphic)
+add_custom_target(mesh COMMAND ${MESH} DEPENDS ${MESH} COMMENT "./${MESH}")
+

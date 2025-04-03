@@ -1,5 +1,7 @@
-/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/joukowskyFoil.dir
+/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/myFem.dir
 /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/run.dir
+/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/genMesh.dir
+/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/mesh.dir
 /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/edit_cache.dir
 /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/rebuild_cache.dir
 /home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/CMakeFiles/list_install_components.dir

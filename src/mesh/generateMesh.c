@@ -31,7 +31,7 @@ void generateMesh(void){
     geoSetDomainName(1,"Foil");
     geoSetDomainName(2,"Circle2");
     geoSetDomainName(3,"Circle3");
-    geoMeshWrite("../data/mesh.txt");
+    geoMeshWrite("../../data/mesh.txt");
     geoFinalize();
 
     printf("Mesh generated in %f seconds\n", (double)(clock() - start) / CLOCKS_PER_SEC);

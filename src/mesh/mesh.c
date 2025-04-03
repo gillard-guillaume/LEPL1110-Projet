@@ -1,4 +1,4 @@
-# include "../fem/fem.h"
+# include "mesh.h"
 
 femGeo theGeometry;
 
@@ -10,22 +10,26 @@ double geoGmshSize(int dim, int tag, double x, double y, double z, double lc, vo
                                                 { return theGeometry.geoSize(x,y);    }
 
 double geoSize(double x, double y){
-    femGeo* theGeometry = geoGetGeometry();    
-    theGeometry->h            =  0.1;  
-    theGeometry->R            =  R;
-    theGeometry->muX         =  mu_x;
-    theGeometry->muY         =  mu_y;
-    theGeometry->N            =  N;
-    theGeometry->joukowsky_x  = (double *)malloc(N * sizeof(double));
-    theGeometry->joukowsky_y  = (double *)malloc(N * sizeof(double));
-    theGeometry->dCircle1     = theGeometry->h * 2;
-    theGeometry->dCircle2     = theGeometry->h * 2;
-    theGeometry->dCircle3     = theGeometry->h * 2;
-    theGeometry->hCircle1     = theGeometry->h;
-    theGeometry->hCircle2     = theGeometry->h;
-    theGeometry->hCircle3     = theGeometry->h;
+    femGeo *theGeometry = geoGetGeometry();
+    double h = theGeometry->h;
 
-    theGeometry->elementType  = FEM_TRIANGLE;
+    double x0 = theGeometry->xCircle1;
+    double y0 = theGeometry->yCircle1;
+    double r0 = theGeometry->rCircle1;
+    double d0 = theGeometry->dCircle1;
+    double h0 = theGeometry->hCircle1;
+
+    double x1 = theGeometry->xCircle2;
+    double y1 = theGeometry->yCircle2;
+    double r1 = theGeometry->rCircle2;
+    double d1 = theGeometry->dCircle2;
+    double h1 = theGeometry->hCircle2;
+
+    double x2 = theGeometry->xCircle3;
+    double y2 = theGeometry->yCircle3;
+    double r2 = theGeometry->rCircle3;
+    double d2 = theGeometry->dCircle3;
+    double h2 = theGeometry->hCircle3;
 
     double hfinal = h;
     double d = sqrt((x-x0)*(x-x0) + (y-y0)*(y-y0)) - r0;
@@ -119,7 +123,7 @@ void geoMeshGenerate(){
     int bis;
 
     // Aile
-    int *points = (int *)malloc(N * sizeof(int));
+    int *points = (int *)malloc((N +1)* sizeof(int));
     for (int i=0; i<N; i++){points[i] = gmshModelOccAddPoint(joukowsky_x[i], joukowsky_y[i], 0, 0.1, -1, &ierr);}
     points[N] = points[0];
 
@@ -377,6 +381,7 @@ void geoMeshWrite(const char *filename) {
       fprintf(file,"\n"); }
     
    fclose(file);
+   geoMeshUnfuck();
 }
 
 void geoMeshRead(const char *filename) 
@@ -445,3 +450,13 @@ void geoMeshRead(const char *filename)
    fclose(file);
 }
 
+void geoMeshUnfuck() {
+    int bettercallsaul = system("fixmesh.py");
+    if (bettercallsaul != 0) {
+        printf("Error: fixmesh.py failed with error code %d\n", bettercallsaul);
+        return;
+    }
+    if (bettercallsaul == 0) {
+        printf("fixmesh.py executed successfully.\n");
+    }
+}
