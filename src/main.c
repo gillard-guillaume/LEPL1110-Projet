@@ -12,6 +12,7 @@
 
 int main(void)
 {  
+    int ierr;
     printf("\n\n    V : Mesh and displacement norm \n");
     printf("    D : Domains \n");
     printf("    N : Next domain highlighted\n\n\n");
@@ -28,7 +29,7 @@ int main(void)
     double E   = 71.7e9;
     double nu  = 0.33;
     double rho = 2.810e3; 
-    double g   = 9.81 * 1;
+    double g   = 9.81 * 1 *0;
     femRenumType renumType = FEM_XNUM;
     femSolverType solverType = FEM_CHOV;
     theGeometry->elementType  = FEM_TRIANGLE;
@@ -37,13 +38,13 @@ int main(void)
 
     clock_t start = clock();
     femProblem* theProblem = femElasticityCreate(theGeometry,E,nu,rho,g, caseType, renumType);
-    femElasticityAddBoundaryCondition(theProblem, "Foil", NEUMANN_Y, 0);
-    femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_X,0.0);
-    femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_Y,0.0);
-    femElasticityAddBoundaryCondition(theProblem,"Circle2",DIRICHLET_X,0.0);
-    femElasticityAddBoundaryCondition(theProblem,"Circle2",DIRICHLET_Y,0.0);
-    femElasticityAddBoundaryCondition(theProblem,"Circle3",DIRICHLET_X,0.0);
-    femElasticityAddBoundaryCondition(theProblem,"Circle3",DIRICHLET_Y,0.0);
+    femElasticityAddBoundaryCondition(theProblem, "Foil", NEUMANN_NORMAL, 0.0, foilProfile);
+    femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_X,0.0, NULL);
+    femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_Y,0.0, NULL);
+    femElasticityAddBoundaryCondition(theProblem,"Circle2",DIRICHLET_X,0.0, NULL);
+    femElasticityAddBoundaryCondition(theProblem,"Circle2",DIRICHLET_Y,0.0, NULL);
+    femElasticityAddBoundaryCondition(theProblem,"Circle3",DIRICHLET_X,0.0, NULL);
+    femElasticityAddBoundaryCondition(theProblem,"Circle3",DIRICHLET_Y,0.0, NULL);
 
     femElasticityPrint(theProblem);
     printf("Problem created in %f seconds\n", (double)(clock() - start) / CLOCKS_PER_SEC);

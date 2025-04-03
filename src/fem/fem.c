@@ -365,7 +365,7 @@
      free(theProblem);
  }
      
- void femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value)
+ void femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value,  double (*profile)(double x, double y))
  {
      int iDomain = geoGetDomain(nameDomain);
      if (iDomain == -1)  Error("Undefined domain :-(");
@@ -374,6 +374,7 @@
      theBoundary->domain = theProblem->geometry->theDomains[iDomain];
      theBoundary->value = value;
      theBoundary->type = type;
+     theBoundary->profile =  profile;
      theProblem->nBoundaryConditions++;
      int size = theProblem->nBoundaryConditions;
      
@@ -512,14 +513,14 @@ void femElasticityAssembleNeumann(femProblem *theProblem){
 }
 
 void femElasticityAssembleNeumannNormal(femProblem *theProblem){
-    femFullSystem  *theSystem = theProblem->system;
-    femIntegration *theRule = theProblem->ruleEdge;
-    femDiscrete    *theSpace = theProblem->spaceEdge;
+    femFullSystem  *theSystem   = theProblem->system;
+    femIntegration *theRule     = theProblem->ruleEdge;
+    femDiscrete    *theSpace    = theProblem->spaceEdge;
     femGeo         *theGeometry = theProblem->geometry;
-    femNodes       *theNodes = theGeometry->theNodes;
-    femMesh        *theEdges = theGeometry->theEdges;
+    femNodes       *theNodes    = theGeometry->theNodes;
+    femMesh        *theEdges    = theGeometry->theEdges;
     double x[2], y[2], phi[2];
-    int iBnd, iElem, iInteg, iEdge, i, j, map[2];
+    int iBnd, iElem, iInteg, iEdge, i, map[2];
     int nLocal = 2;
     double *B = theSystem->B;
 
@@ -527,7 +528,6 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
         femBoundaryCondition *theCondition = theProblem->conditions[iBnd];
         femBoundaryType type = theCondition->type;
         femDomain *theDomain = theCondition->domain;
-        double value = theCondition->value;
 
         if (type == NEUMANN_NORMAL) {
             for (iEdge = 0; iEdge < theDomain->nElem; iEdge++) {
@@ -544,16 +544,23 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
                 double norm = sqrt(dx*dx + dy*dy);
                 double nx = -dy / norm;
                 double ny =  dx / norm;
-
-                double fx = value * nx;
-                double fy = value * ny;
-
                 double jacobian = norm / 2.0;
 
                 for (iInteg = 0; iInteg < theRule->n; iInteg++) {
                     double xsi = theRule->xsi[iInteg];
                     double weight = theRule->weight[iInteg];
                     femDiscretePhi(theSpace, xsi, phi);
+
+                    // Point d’intégration (x,y)
+                    double xInteg = phi[0] * x[0] + phi[1] * x[1];
+                    double yInteg = phi[0] * y[0] + phi[1] * y[1];
+
+                    double value = (theCondition->profile != NULL)
+                        ? theCondition->profile(xInteg, yInteg)
+                        : theCondition->value;
+
+                    double fx = value * nx;
+                    double fy = value * ny;
 
                     for (i = 0; i < theSpace->n; i++) {
                         B[2*map[i]  ] += phi[i] * fx * jacobian * weight;
@@ -564,7 +571,6 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
         }
     }
 }
- 
  
  
  double femMin(double *x, int n) 
@@ -586,40 +592,42 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
  }
  
  double *femElasticitySolve(femProblem *theProblem, femSolverType FEM_GAUSS){
-     femFullSystem *theSystem = theProblem->system;
-     femFullSystemInit(theSystem);
-     printf("Problem initiated\n");
-     femElasticityAssembleElements(theProblem);
-     printf("Elements assembled\n");
-     femElasticityAssembleNeumann(theProblem);
-     printf("Neumann assembled\n");
-     int size = theSystem->size;
-     if (A_copy == NULL){
-         A_copy = (double **) malloc(sizeof(double *) * size);
-         for (int i = 0; i < size; i++) { A_copy[i] = (double *) malloc(sizeof(double) * size); }
-     }
-     if (B_copy == NULL) { B_copy = (double *) malloc(sizeof(double) * size); }
- 
-     for (int i = 0; i < size; i++){
-         for (int j = 0; j < size; j++) { A_copy[i][j] = theSystem->A[i][j]; }
-         B_copy[i] = theSystem->B[i];
-     }
- 
-     int *theConstrainedNodes = theProblem->constrainedNodes;
-     for (int i = 0; i < size; i++){
-         if (theConstrainedNodes[i] != -1){
-             double value = theProblem->conditions[theConstrainedNodes[i]]->value;
-             femFullSystemConstrain(theSystem, i, value);
-         }
-     }
- 
-     printf("Solving the system\n");
-     femFullSystemEliminate(theSystem, FEM_GAUSS);
-     printf("System solved\n");
-     // memcpy(theProblem->soluce, theSystem->B, theSystem->size * sizeof(double));
-     // printf("Solution copied\n");
-     // return theProblem->soluce;
-     return theSystem->B;
+    femFullSystem *theSystem = theProblem->system;
+    femFullSystemInit(theSystem);
+    printf("Problem initiated\n");
+    femElasticityAssembleElements(theProblem);
+    printf("Elements assembled\n");
+    femElasticityAssembleNeumann(theProblem);
+    printf("Neumann assembled\n");
+    femElasticityAssembleNeumannNormal(theProblem);
+    printf("Neumann normal assembled\n");
+    int size = theSystem->size;
+    if (A_copy == NULL){
+        A_copy = (double **) malloc(sizeof(double *) * size);
+        for (int i = 0; i < size; i++) { A_copy[i] = (double *) malloc(sizeof(double) * size); }
+    }
+    if (B_copy == NULL) { B_copy = (double *) malloc(sizeof(double) * size); }
+
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++) { A_copy[i][j] = theSystem->A[i][j]; }
+        B_copy[i] = theSystem->B[i];
+    }
+
+    int *theConstrainedNodes = theProblem->constrainedNodes;
+    for (int i = 0; i < size; i++){
+        if (theConstrainedNodes[i] != -1){
+            double value = theProblem->conditions[theConstrainedNodes[i]]->value;
+            femFullSystemConstrain(theSystem, i, value);
+        }
+    }
+
+    printf("Solving the system\n");
+    femFullSystemEliminate(theSystem, FEM_GAUSS);
+    printf("System solved\n");
+    // memcpy(theProblem->soluce, theSystem->B, theSystem->size * sizeof(double));
+    // printf("Solution copied\n");
+    // return theProblem->soluce;
+    return theSystem->B;
  }
  
  double *femElasticityForces(femProblem *theProblem){
@@ -643,3 +651,10 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
  
      return residuals;
  }
+
+ double foilProfile(double x, double y) {
+    double amp = 5.0;
+    double xShape = exp(-20.0 * (x - 0.1) * (x - 0.1));  // pic vers l'avant
+    double yDir = (y < 0) ? -1.0 : 1.0;                  // vers le haut si dessous
+    return amp * xShape * yDir;
+}

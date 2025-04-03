@@ -5,6 +5,18 @@
         "main.h": "c",
         "gmshc.h": "c",
         "fem.h": "c",
-        "joukowsky.h": "c"
+        "joukowsky.h": "c",
+        "*.tcc": "c",
+        "optional": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "array": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "chrono": "c",
+        "compare": "c",
+        "complex": "c"
     }
 }
