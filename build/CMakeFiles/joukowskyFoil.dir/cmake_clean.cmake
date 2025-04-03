@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/joukowskyFoil.dir/src/gl/glfem.c.o.d"
   "CMakeFiles/joukowskyFoil.dir/src/main.c.o"
   "CMakeFiles/joukowskyFoil.dir/src/main.c.o.d"
+  "CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.o"
+  "CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.o.d"
   "CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o"
   "CMakeFiles/joukowskyFoil.dir/src/mesh/joukowsky.c.o.d"
   "CMakeFiles/joukowskyFoil.dir/src/mesh/mesh.c.o"

@@ -6,6 +6,7 @@
 #include "fem/fem.h"
 #include "mesh/joukowsky.h"
 #include "mesh/mesh.h"
+#include "mesh/generateMesh.h"
 #include "gl/glfem.h"
 #include "../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h"
 

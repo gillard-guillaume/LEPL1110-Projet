@@ -298,6 +298,30 @@ src/main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/mesh/generateMesh.o: src/mesh/generateMesh.c.o
+.PHONY : src/mesh/generateMesh.o
+
+# target to build an object file
+src/mesh/generateMesh.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.o
+.PHONY : src/mesh/generateMesh.c.o
+
+src/mesh/generateMesh.i: src/mesh/generateMesh.c.i
+.PHONY : src/mesh/generateMesh.i
+
+# target to preprocess a source file
+src/mesh/generateMesh.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.i
+.PHONY : src/mesh/generateMesh.c.i
+
+src/mesh/generateMesh.s: src/mesh/generateMesh.c.s
+.PHONY : src/mesh/generateMesh.s
+
+# target to generate assembly for a file
+src/mesh/generateMesh.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joukowskyFoil.dir/build.make CMakeFiles/joukowskyFoil.dir/src/mesh/generateMesh.c.s
+.PHONY : src/mesh/generateMesh.c.s
+
 src/mesh/joukowsky.o: src/mesh/joukowsky.c.o
 .PHONY : src/mesh/joukowsky.o
 
@@ -444,6 +468,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/mesh/generateMesh.o"
+	@echo "... src/mesh/generateMesh.i"
+	@echo "... src/mesh/generateMesh.s"
 	@echo "... src/mesh/joukowsky.o"
 	@echo "... src/mesh/joukowsky.i"
 	@echo "... src/mesh/joukowsky.s"

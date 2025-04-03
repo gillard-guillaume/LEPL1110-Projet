@@ -1,48 +1,31 @@
-#include "mesh.h"
+# include "../fem/fem.h"
 
 femGeo theGeometry;
 
-femGeo *geoGetGeometry(){ 
-    return &theGeometry; 
-}
+femGeo *geoGetGeometry()                        { return &theGeometry; }
 
-double geoSizeDefault(double x, double y){ 
-    return 1.0; 
-}
+double geoSizeDefault(double x, double y)       { return theGeometry.h; }
 
-double geoGmshSize(int dim, int tag, double x, double y, double z, double lc, void *data){
-    return theGeometry.geoSize(x,y);    
-}
-
-double interpolationH(double x, double x0, double x1, double h0, double h) {
-    double q0 = pow((x-x1)/(x0-x1),2);
-    double q1 = pow((x-x0)/(x1-x0),2);
-    double P0 = h0 + (x-x0)*(-2/(x0-x1))*h0;
-    double P1 = h + (x-x1)*(-2/(x1-x0))*h;
-    return q0*P0 + q1*P1;
-}
+double geoGmshSize(int dim, int tag, double x, double y, double z, double lc, void *data)
+                                                { return theGeometry.geoSize(x,y);    }
 
 double geoSize(double x, double y){
-    femGeo *theGeometry = geoGetGeometry();
-    double h = theGeometry->h;
+    femGeo* theGeometry = geoGetGeometry();    
+    theGeometry->h            =  0.1;  
+    theGeometry->R            =  R;
+    theGeometry->muX         =  mu_x;
+    theGeometry->muY         =  mu_y;
+    theGeometry->N            =  N;
+    theGeometry->joukowsky_x  = (double *)malloc(N * sizeof(double));
+    theGeometry->joukowsky_y  = (double *)malloc(N * sizeof(double));
+    theGeometry->dCircle1     = theGeometry->h * 2;
+    theGeometry->dCircle2     = theGeometry->h * 2;
+    theGeometry->dCircle3     = theGeometry->h * 2;
+    theGeometry->hCircle1     = theGeometry->h;
+    theGeometry->hCircle2     = theGeometry->h;
+    theGeometry->hCircle3     = theGeometry->h;
 
-    double x0 = theGeometry->xCircle1;
-    double y0 = theGeometry->yCircle1;
-    double r0 = theGeometry->rCircle1;
-    double d0 = theGeometry->dCircle1;
-    double h0 = theGeometry->hCircle1;
-
-    double x1 = theGeometry->xCircle2;
-    double y1 = theGeometry->yCircle2;
-    double r1 = theGeometry->rCircle2;
-    double d1 = theGeometry->dCircle2;
-    double h1 = theGeometry->hCircle3;
-
-    double x2 = theGeometry->xCircle3;
-    double y2 = theGeometry->yCircle3;
-    double r2 = theGeometry->rCircle3;
-    double d2 = theGeometry->dCircle3;
-    double h2 = theGeometry->hCircle3;
+    theGeometry->elementType  = FEM_TRIANGLE;
 
     double hfinal = h;
     double d = sqrt((x-x0)*(x-x0) + (y-y0)*(y-y0)) - r0;
@@ -69,87 +52,6 @@ double geoSize(double x, double y){
     return hfinal;
 }
 
-int geoMeshGenerate() {
-    int ierr;
-    femGeo *theGeometry = geoGetGeometry();
-
-    int N = theGeometry->N;
-    double *joukowsky_x = theGeometry->joukowsky_x;
-    double *joukowsky_y = theGeometry->joukowsky_y;
-
-    double xCircle1 = theGeometry->xCircle1;
-    double yCircle1 = theGeometry->yCircle1;
-    double rCircle1 = theGeometry->rCircle1;
-
-    double xCircle2 = theGeometry->xCircle2;
-    double yCircle2 = theGeometry->yCircle2;
-    double rCircle2 = theGeometry->rCircle2;
-
-    double xCircle3 = theGeometry->xCircle3;
-    double yCircle3 = theGeometry->yCircle3;
-    double rCircle3 = theGeometry->rCircle3;
-
-    // Wing
-    int *points = malloc(N * sizeof(int));
-    if (points == NULL) {printf("Error: Could not allocate memory for points.\n"); return 1;}
-    for (int i = 0; i < N; i++) {
-        points[i] = gmshModelOccAddPoint(joukowsky_x[i], joukowsky_y[i], 0, 0.1, -1, &ierr);
-        if (ierr) {printf("Error: Could not add point %d.\n", i); return 1;}
-    }
-    points[N] = points[0];
-
-    int splineID = gmshModelOccAddSpline(points, N+1, -1, NULL, 0, &ierr);
-    if (ierr) {printf("Error: Could not add spline.\n"); return 1;}
-    int loopID = gmshModelOccAddCurveLoop(&splineID, 1, -1, &ierr);
-    if (ierr) {printf("Error: Could not add curve loop.\n"); return 1;}
-    int surfaceID = gmshModelOccAddPlaneSurface(&loopID, 1, -1, &ierr);
-    if (ierr) {printf("Error: Could not add plane surface.\n"); return 1;}
-
-    int wing[] = {2, surfaceID};
-
-    // Circles
-    int circle1ID = gmshModelOccAddDisk(xCircle1,yCircle1,0.0,rCircle1,rCircle1,-1,NULL,0,NULL,0,&ierr); 
-    if (ierr) {printf("Error: Could not add circle 1.\n"); return 1;}
-    int circle2ID = gmshModelOccAddDisk(xCircle2,yCircle2,0.0,rCircle2,rCircle2,-1,NULL,0,NULL,0,&ierr);
-    if (ierr) {printf("Error: Could not add circle 2.\n"); return 1;}
-    int circle3ID = gmshModelOccAddDisk(xCircle3,yCircle3,0.0,rCircle3,rCircle3,-1,NULL,0,NULL,0,&ierr);
-    if (ierr) {printf("Error: Could not add circle 3.\n"); return 1;}
-
-    int circle1[] = {2, circle1ID};
-    int circle2[] = {2, circle2ID};
-    int circle3[] = {2, circle3ID};
-    
-    // Removing the circles from the wing
-    gmshModelOccCut(wing,2,circle1,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
-    if (ierr) {printf("Error: Could not cut circle 1 from wing.\n"); return 1;}
-    gmshModelOccCut(wing,2,circle2,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
-    if (ierr) {printf("Error: Could not cut circle 2 from wing.\n"); return 1;}
-    gmshModelOccCut(wing,2,circle3,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
-    if (ierr) {printf("Error: Could not cut circle 3 from wing.\n"); return 1;}
-    
-
-    geoSetSizeCallback(geoSize);
-    gmshModelOccSynchronize(&ierr);
-    
-    
-    if (theGeometry->elementType == FEM_QUAD) {
-        gmshOptionSetNumber("Mesh.SaveAll",1,&ierr);
-        gmshOptionSetNumber("Mesh.RecombineAll",1,&ierr);
-        gmshOptionSetNumber("Mesh.Algorithm",11,&ierr);  
-        gmshOptionSetNumber("Mesh.SmoothRatio", 21.5, &ierr);  
-        gmshOptionSetNumber("Mesh.RecombinationAlgorithm",1.0,&ierr); 
-        gmshModelGeoMeshSetRecombine(2,1,45,&ierr);  
-        gmshModelMeshGenerate(2,&ierr);  
-    }
-    
-    if (theGeometry->elementType == FEM_TRIANGLE) {
-        gmshOptionSetNumber("Mesh.SaveAll",1,&ierr);
-        gmshModelMeshGenerate(2,&ierr);
-    }
-    
-    return 0;
-}
-
 void geoInitialize() {
     int ierr;
     theGeometry.geoSize = geoSizeDefault;
@@ -164,11 +66,14 @@ void geoInitialize() {
 
     theGeometry.joukowsky_x = NULL;
     theGeometry.joukowsky_y = NULL;
+
 }
 
 void geoFinalize() {
     int ierr;
-    
+    if (theGeometry.joukowsky_x) free(theGeometry.joukowsky_x);
+    if (theGeometry.joukowsky_y) free(theGeometry.joukowsky_y);
+
     if (theGeometry.theNodes) {
         free(theGeometry.theNodes->X);
         free(theGeometry.theNodes->Y);
@@ -183,15 +88,80 @@ void geoFinalize() {
         free(theGeometry.theDomains[i]->elem);
         free(theGeometry.theDomains[i]);  }
     free(theGeometry.theDomains);
-
-    if (theGeometry.joukowsky_x) free(theGeometry.joukowsky_x);
-    if (theGeometry.joukowsky_y) free(theGeometry.joukowsky_y);
-
     gmshFinalize(&ierr); ErrorGmsh(ierr);
 }
 
+
 void geoSetSizeCallback(double (*geoSize)(double x, double y)) {
-    theGeometry.geoSize = geoSize; 
+    theGeometry.geoSize = geoSize; }
+
+void geoMeshGenerate(){
+    femGeo* theGeometry = geoGetGeometry();
+    joukowsky(theGeometry);
+
+    double xCircle1 = theGeometry->xCircle1;
+    double yCircle1 = theGeometry->yCircle1;
+    double rCircle1 = theGeometry->rCircle1;
+
+    double xCircle2 = theGeometry->xCircle2;
+    double yCircle2 = theGeometry->yCircle2;
+    double rCircle2 = theGeometry->rCircle2;
+
+    double xCircle3 = theGeometry->xCircle3;
+    double yCircle3 = theGeometry->yCircle3;
+    double rCircle3 = theGeometry->rCircle3;
+
+    int N = theGeometry->N;
+    double *joukowsky_x = theGeometry->joukowsky_x;
+    double *joukowsky_y = theGeometry->joukowsky_y;
+
+    int ierr;
+    int bis;
+
+    // Aile
+    int *points = (int *)malloc(N * sizeof(int));
+    for (int i=0; i<N; i++){points[i] = gmshModelOccAddPoint(joukowsky_x[i], joukowsky_y[i], 0, 0.1, -1, &ierr);}
+    points[N] = points[0];
+
+    int splineID = gmshModelOccAddSpline(points, N+1, -1, NULL, 0, &ierr);
+    int loopID = gmshModelOccAddCurveLoop(&splineID, 1, -1, &ierr);
+    int foilID = gmshModelOccAddPlaneSurface(&loopID, 1, -1, &ierr);
+
+    int foil[] = {2, foilID};
+    
+    // Trous
+    int circle1ID = gmshModelOccAddDisk(xCircle1,yCircle1,0.0,rCircle1,rCircle1,-1,NULL,0,NULL,0,&ierr); 
+    int circle2ID = gmshModelOccAddDisk(xCircle2,yCircle2,0.0,rCircle2,rCircle2,-1,NULL,0,NULL,0,&ierr);
+    int circle3ID = gmshModelOccAddDisk(xCircle3,yCircle3,0.0,rCircle3,rCircle3,-1,NULL,0,NULL,0,&ierr);
+    int circle1[] = {2, circle1ID};
+    int circle2[] = {2, circle2ID};
+    int circle3[] = {2, circle3ID};
+
+    // Perçage
+    gmshModelOccCut(foil,2,circle1,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
+    gmshModelOccCut(foil,2,circle2,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
+    gmshModelOccCut(foil,2,circle3,2,NULL,NULL,NULL,NULL,NULL,-1,1,1,&ierr);
+
+    geoSetSizeCallback(geoSize);
+    gmshModelOccSynchronize(&ierr);
+
+    if (theGeometry->elementType == FEM_QUAD) {
+        gmshOptionSetNumber("Mesh.SaveAll",1,&ierr);
+        gmshOptionSetNumber("Mesh.RecombineAll",1,&ierr);
+        gmshOptionSetNumber("Mesh.Algorithm",11,&ierr);  
+        gmshOptionSetNumber("Mesh.SmoothRatio", 21.5, &ierr);  
+        gmshOptionSetNumber("Mesh.RecombinationAlgorithm",1.0,&ierr); 
+        gmshModelGeoMeshSetRecombine(2,1,45,&ierr);  
+        gmshModelMeshGenerate(2,&ierr);  }
+    
+    if (theGeometry->elementType == FEM_TRIANGLE) {
+        gmshOptionSetNumber("Mesh.SaveAll",1,&ierr);
+        gmshModelMeshGenerate(2,&ierr);  }
+
+    // gmshFltkInitialize(&ierr);
+    // gmshFltkRun(&ierr); 
+    
+    return;
 }
 
 void geoSetDomainName(int iDomain, char *name) {
@@ -330,160 +300,148 @@ void geoMeshImport() {
 }
 
 void geoMeshPrint() {
-    femNodes *theNodes = theGeometry.theNodes;
-    if (theNodes != NULL) {
-       printf("Number of nodes %d \n", theNodes->nNodes);
-       for (int i = 0; i < theNodes->nNodes; i++) {
-         printf("%6d : %6d : %14.7e %14.7e \n",i,theNodes->number[i],theNodes->X[i],theNodes->Y[i]); }}
-    femMesh *theEdges = theGeometry.theEdges;
-    if (theEdges != NULL) {
-      printf("Number of edges %d \n", theEdges->nElem);
-      int *elem = theEdges->elem;
-      for (int i = 0; i < theEdges->nElem; i++) {
-         printf("%6d : %6d %6d \n",i,elem[2*i],elem[2*i+1]); }}
-    femMesh *theElements = theGeometry.theElements;
-    if (theElements != NULL) {
-      if (theElements->nLocalNode == 3) {
-         printf("Number of triangles %d \n", theElements->nElem);
-         int *elem = theElements->elem;
-         for (int i = 0; i < theElements->nElem; i++) {
-             printf("%6d : %6d %6d %6d\n",i,elem[3*i],elem[3*i+1],elem[3*i+2]); }}
-      if (theElements->nLocalNode == 4) {
-         printf("Number of quads %d \n", theElements->nElem);
-         int *elem = theElements->elem;
-         for (int i = 0; i < theElements->nElem; i++) {
-             printf("%6d : %6d %6d %6d %6d\n",i,elem[4*i],elem[4*i+1],elem[4*i+2],elem[4*i+3]); }}}
-    int nDomains = theGeometry.nDomains;
-    printf("Number of domains %d\n", nDomains);
-    for (int iDomain = 0; iDomain < nDomains; iDomain++) {
-       femDomain *theDomain = theGeometry.theDomains[iDomain];
-       printf("  Domain : %6d \n", iDomain);
-       printf("  Name : %s\n", theDomain->name);
-       printf("  Number of elements : %6d\n", theDomain->nElem);
-       for (int i=0; i < theDomain->nElem; i++){
-  //         if (i != theDomain->nElem  && (i % 10) != 0)  printf(" - ");
-           printf("%6d",theDomain->elem[i]);
-           if ((i+1) != theDomain->nElem  && (i+1) % 10 == 0) printf("\n"); }
-       printf("\n"); }
-   
-   
- }
-  
- void geoMeshWrite(const char *filename) {
-    FILE* file = fopen(filename,"w");
-  
-    femNodes *theNodes = theGeometry.theNodes;
-    fprintf(file, "Number of nodes %d \n", theNodes->nNodes);
-    for (int i = 0; i < theNodes->nNodes; i++) {
-       fprintf(file,"%6d : %14.7e %14.7e \n",i,theNodes->X[i],theNodes->Y[i]); }
-       
-    femMesh *theEdges = theGeometry.theEdges;
-    fprintf(file,"Number of edges %d \n", theEdges->nElem);
-    int *elem = theEdges->elem;
-    for (int i = 0; i < theEdges->nElem; i++) {
-       fprintf(file,"%6d : %6d %6d \n",i,elem[2*i],elem[2*i+1]); }
-       
-    femMesh *theElements = theGeometry.theElements;
-    if (theElements->nLocalNode == 3) {
-       fprintf(file,"Number of triangles %d \n", theElements->nElem);
-       elem = theElements->elem;
-       for (int i = 0; i < theElements->nElem; i++) {
-           fprintf(file,"%6d : %6d %6d %6d\n",i,elem[3*i],elem[3*i+1],elem[3*i+2]); }}
-    if (theElements->nLocalNode == 4) {
-       fprintf(file,"Number of quads %d \n", theElements->nElem);
-       elem = theElements->elem;
-       for (int i = 0; i < theElements->nElem; i++) {
-           fprintf(file,"%6d : %6d %6d %6d %6d\n",i,elem[4*i],elem[4*i+1],elem[4*i+2],elem[4*i+3]); }}
-      
-    int nDomains = theGeometry.nDomains;
-    fprintf(file,"Number of domains %d\n", nDomains);
-    for (int iDomain = 0; iDomain < nDomains; iDomain++) {
-       femDomain *theDomain = theGeometry.theDomains[iDomain];
-       fprintf(file,"  Domain : %6d \n", iDomain);
-       fprintf(file,"  Name : %s\n", theDomain->name);
-       fprintf(file,"  Number of elements : %6d\n", theDomain->nElem);
-       for (int i=0; i < theDomain->nElem; i++){
-           fprintf(file,"%6d",theDomain->elem[i]);
-           if ((i+1) != theDomain->nElem  && (i+1) % 10 == 0) fprintf(file,"\n"); }
-       fprintf(file,"\n"); }
-     
-    fclose(file);
-    geoMeshUnfuck();
- }
- 
- void geoMeshRead(const char *filename) 
- {
-    FILE* file = fopen(filename,"r");
-    
-    int trash, *elem;
-    
-    femNodes *theNodes = malloc(sizeof(femNodes));
-    theGeometry.theNodes = theNodes;
-    ErrorScan(fscanf(file, "Number of nodes %d \n", &theNodes->nNodes));
-    theNodes->X = malloc(sizeof(double)*(theNodes->nNodes));
-    theNodes->Y = malloc(sizeof(double)*(theNodes->nNodes));
-    for (int i = 0; i < theNodes->nNodes; i++) {
-        ErrorScan(fscanf(file,"%d : %le %le \n",&trash,&theNodes->X[i],&theNodes->Y[i]));} 
-     
-     theNodes->number = malloc(sizeof(int)*theNodes->nNodes);
-     for (int i = 0; i < theNodes->nNodes; i++) theNodes->number[i] = i;
- 
-    femMesh *theEdges = malloc(sizeof(femMesh));
-    theGeometry.theEdges = theEdges;
-    theEdges->nLocalNode = 2;
-    theEdges->nodes = theNodes;
-    ErrorScan(fscanf(file, "Number of edges %d \n", &theEdges->nElem));
-    theEdges->elem = malloc(sizeof(int)*theEdges->nLocalNode*theEdges->nElem);
-    for(int i=0; i < theEdges->nElem; ++i) {
-         elem = theEdges->elem;
-         ErrorScan(fscanf(file, "%6d : %6d %6d \n", &trash,&elem[2*i],&elem[2*i+1])); }
-   
-    femMesh *theElements = malloc(sizeof(femMesh));
-    theGeometry.theElements = theElements;
-    theElements->nLocalNode = 0;
-    theElements->nodes = theNodes;
-    char elementType[MAXNAME];  
-    ErrorScan(fscanf(file, "Number of %s %d \n",elementType,&theElements->nElem));  
-    if (strncasecmp(elementType,"triangles",MAXNAME) == 0) {
-       theElements->nLocalNode = 3;
-       theElements->elem = malloc(sizeof(int)*theElements->nLocalNode*theElements->nElem);
-       for(int i=0; i < theElements->nElem; ++i) {
-           elem = theElements->elem;
-           ErrorScan(fscanf(file, "%6d : %6d %6d %6d \n", 
-                     &trash,&elem[3*i],&elem[3*i+1],&elem[3*i+2])); }}
-    if (strncasecmp(elementType,"quads",MAXNAME) == 0) {
-       theElements->nLocalNode = 4;
-       theElements->elem = malloc(sizeof(int)*theElements->nLocalNode*theElements->nElem);
-       for(int i=0; i < theElements->nElem; ++i) {
-           elem = theElements->elem;
-           ErrorScan(fscanf(file, "%6d : %6d %6d %6d %6d \n", 
-                     &trash,&elem[4*i],&elem[4*i+1],&elem[4*i+2],&elem[4*i+3])); }}
-            
-    ErrorScan(fscanf(file, "Number of domains %d\n", &theGeometry.nDomains));
-    int nDomains = theGeometry.nDomains;
-    theGeometry.theDomains = malloc(sizeof(femDomain*)*nDomains);
-    for (int iDomain = 0; iDomain < nDomains; iDomain++) {
-       femDomain *theDomain = malloc(sizeof(femDomain)); 
-       theGeometry.theDomains[iDomain] = theDomain;
-       theDomain->mesh = theEdges; 
-       ErrorScan(fscanf(file,"  Domain : %6d \n", &trash));
-       ErrorScan(fscanf(file,"  Name : %[^\n]s \n", (char*)&theDomain->name));
-       ErrorScan(fscanf(file,"  Number of elements : %6d\n", &theDomain->nElem));
-       theDomain->elem = malloc(sizeof(int)*2*theDomain->nElem); 
-       for (int i=0; i < theDomain->nElem; i++){
-           ErrorScan(fscanf(file,"%6d",&theDomain->elem[i]));
-           if ((i+1) != theDomain->nElem  && (i+1) % 10 == 0) ErrorScan(fscanf(file,"\n")); }}
-     
-    fclose(file);
- }
+   femNodes *theNodes = theGeometry.theNodes;
+   if (theNodes != NULL) {
+      printf("Number of nodes %d \n", theNodes->nNodes);
+      for (int i = 0; i < theNodes->nNodes; i++) {
+        printf("%6d : %6d : %14.7e %14.7e \n",i,theNodes->number[i],theNodes->X[i],theNodes->Y[i]); }}
+   femMesh *theEdges = theGeometry.theEdges;
+   if (theEdges != NULL) {
+     printf("Number of edges %d \n", theEdges->nElem);
+     int *elem = theEdges->elem;
+     for (int i = 0; i < theEdges->nElem; i++) {
+        printf("%6d : %6d %6d \n",i,elem[2*i],elem[2*i+1]); }}
+   femMesh *theElements = theGeometry.theElements;
+   if (theElements != NULL) {
+     if (theElements->nLocalNode == 3) {
+        printf("Number of triangles %d \n", theElements->nElem);
+        int *elem = theElements->elem;
+        for (int i = 0; i < theElements->nElem; i++) {
+            printf("%6d : %6d %6d %6d\n",i,elem[3*i],elem[3*i+1],elem[3*i+2]); }}
+     if (theElements->nLocalNode == 4) {
+        printf("Number of quads %d \n", theElements->nElem);
+        int *elem = theElements->elem;
+        for (int i = 0; i < theElements->nElem; i++) {
+            printf("%6d : %6d %6d %6d %6d\n",i,elem[4*i],elem[4*i+1],elem[4*i+2],elem[4*i+3]); }}}
+   int nDomains = theGeometry.nDomains;
+   printf("Number of domains %d\n", nDomains);
+   for (int iDomain = 0; iDomain < nDomains; iDomain++) {
+      femDomain *theDomain = theGeometry.theDomains[iDomain];
+      printf("  Domain : %6d \n", iDomain);
+      printf("  Name : %s\n", theDomain->name);
+      printf("  Number of elements : %6d\n", theDomain->nElem);
+      for (int i=0; i < theDomain->nElem; i++){
+ //         if (i != theDomain->nElem  && (i % 10) != 0)  printf(" - ");
+          printf("%6d",theDomain->elem[i]);
+          if ((i+1) != theDomain->nElem  && (i+1) % 10 == 0) printf("\n"); }
+      printf("\n"); }
+}
 
- void geoMeshUnfuck() {
-    int bettercallsaul = system("fixmesh.py");
-    if (bettercallsaul != 0) {
-        printf("Error: fixmesh.py failed with error code %d\n", bettercallsaul);
-        return;
-    }
-    if (bettercallsaul == 0) {
-        printf("fixmesh.py executed successfully.\n");
-    }
- }
+
+void geoMeshWrite(const char *filename) {
+   FILE* file = fopen(filename,"w");
+ 
+   femNodes *theNodes = theGeometry.theNodes;
+   fprintf(file, "Number of nodes %d \n", theNodes->nNodes);
+   for (int i = 0; i < theNodes->nNodes; i++) {
+      fprintf(file,"%6d : %14.7e %14.7e \n",i,theNodes->X[i],theNodes->Y[i]); }
+      
+   femMesh *theEdges = theGeometry.theEdges;
+   fprintf(file,"Number of edges %d \n", theEdges->nElem);
+   int *elem = theEdges->elem;
+   for (int i = 0; i < theEdges->nElem; i++) {
+      fprintf(file,"%6d : %6d %6d \n",i,elem[2*i],elem[2*i+1]); }
+      
+   femMesh *theElements = theGeometry.theElements;
+   if (theElements->nLocalNode == 3) {
+      fprintf(file,"Number of triangles %d \n", theElements->nElem);
+      elem = theElements->elem;
+      for (int i = 0; i < theElements->nElem; i++) {
+          fprintf(file,"%6d : %6d %6d %6d\n",i,elem[3*i],elem[3*i+1],elem[3*i+2]); }}
+   if (theElements->nLocalNode == 4) {
+      fprintf(file,"Number of quads %d \n", theElements->nElem);
+      elem = theElements->elem;
+      for (int i = 0; i < theElements->nElem; i++) {
+          fprintf(file,"%6d : %6d %6d %6d %6d\n",i,elem[4*i],elem[4*i+1],elem[4*i+2],elem[4*i+3]); }}
+     
+   int nDomains = theGeometry.nDomains;
+   fprintf(file,"Number of domains %d\n", nDomains);
+   for (int iDomain = 0; iDomain < nDomains; iDomain++) {
+      femDomain *theDomain = theGeometry.theDomains[iDomain];
+      fprintf(file,"  Domain : %6d \n", iDomain);
+      fprintf(file,"  Name : %s\n", theDomain->name);
+      fprintf(file,"  Number of elements : %6d\n", theDomain->nElem);
+      for (int i=0; i < theDomain->nElem; i++){
+          fprintf(file,"%6d",theDomain->elem[i]);
+          if ((i+1) != theDomain->nElem  && (i+1) % 10 == 0) fprintf(file,"\n"); }
+      fprintf(file,"\n"); }
+    
+   fclose(file);
+}
+
+void geoMeshRead(const char *filename) 
+{
+   FILE* file = fopen(filename,"r");
+   
+   int trash, *elem;
+   
+   femNodes *theNodes = malloc(sizeof(femNodes));
+   theGeometry.theNodes = theNodes;
+   ErrorScan(fscanf(file, "Number of nodes %d \n", &theNodes->nNodes));
+   theNodes->X = malloc(sizeof(double)*(theNodes->nNodes));
+   theNodes->Y = malloc(sizeof(double)*(theNodes->nNodes));
+   for (int i = 0; i < theNodes->nNodes; i++) {
+       ErrorScan(fscanf(file,"%d : %le %le \n",&trash,&theNodes->X[i],&theNodes->Y[i]));} 
+    
+    theNodes->number = malloc(sizeof(int)*theNodes->nNodes);
+    for (int i = 0; i < theNodes->nNodes; i++) theNodes->number[i] = i;
+
+   femMesh *theEdges = malloc(sizeof(femMesh));
+   theGeometry.theEdges = theEdges;
+   theEdges->nLocalNode = 2;
+   theEdges->nodes = theNodes;
+   ErrorScan(fscanf(file, "Number of edges %d \n", &theEdges->nElem));
+   theEdges->elem = malloc(sizeof(int)*theEdges->nLocalNode*theEdges->nElem);
+   for(int i=0; i < theEdges->nElem; ++i) {
+        elem = theEdges->elem;
+        ErrorScan(fscanf(file, "%6d : %6d %6d \n", &trash,&elem[2*i],&elem[2*i+1])); }
+  
+   femMesh *theElements = malloc(sizeof(femMesh));
+   theGeometry.theElements = theElements;
+   theElements->nLocalNode = 0;
+   theElements->nodes = theNodes;
+   char elementType[MAXNAME];  
+   ErrorScan(fscanf(file, "Number of %s %d \n",elementType,&theElements->nElem));  
+   if (strncasecmp(elementType,"triangles",MAXNAME) == 0) {
+      theElements->nLocalNode = 3;
+      theElements->elem = malloc(sizeof(int)*theElements->nLocalNode*theElements->nElem);
+      for(int i=0; i < theElements->nElem; ++i) {
+          elem = theElements->elem;
+          ErrorScan(fscanf(file, "%6d : %6d %6d %6d \n", 
+                    &trash,&elem[3*i],&elem[3*i+1],&elem[3*i+2])); }}
+   if (strncasecmp(elementType,"quads",MAXNAME) == 0) {
+      theElements->nLocalNode = 4;
+      theElements->elem = malloc(sizeof(int)*theElements->nLocalNode*theElements->nElem);
+      for(int i=0; i < theElements->nElem; ++i) {
+          elem = theElements->elem;
+          ErrorScan(fscanf(file, "%6d : %6d %6d %6d %6d \n", 
+                    &trash,&elem[4*i],&elem[4*i+1],&elem[4*i+2],&elem[4*i+3])); }}
+           
+   ErrorScan(fscanf(file, "Number of domains %d\n", &theGeometry.nDomains));
+   int nDomains = theGeometry.nDomains;
+   theGeometry.theDomains = malloc(sizeof(femDomain*)*nDomains);
+   for (int iDomain = 0; iDomain < nDomains; iDomain++) {
+      femDomain *theDomain = malloc(sizeof(femDomain)); 
+      theGeometry.theDomains[iDomain] = theDomain;
+      theDomain->mesh = theEdges; 
+      ErrorScan(fscanf(file,"  Domain : %6d \n", &trash));
+      ErrorScan(fscanf(file,"  Name : %[^\n]s \n", (char*)&theDomain->name));
+      ErrorScan(fscanf(file,"  Number of elements : %6d\n", &theDomain->nElem));
+      theDomain->elem = malloc(sizeof(int)*2*theDomain->nElem); 
+      for (int i=0; i < theDomain->nElem; i++){
+          ErrorScan(fscanf(file,"%6d",&theDomain->elem[i]));
+          if ((i+1) != theDomain->nElem  && (i+1) % 10 == 0) ErrorScan(fscanf(file,"\n")); }}
+    
+   fclose(file);
+}
+
