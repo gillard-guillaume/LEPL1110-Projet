@@ -332,6 +332,7 @@ src/mesh/generateMesh.o: src/mesh/generateMesh.c.o
 
 # target to build an object file
 src/mesh/generateMesh.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/generateMesh.c.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/generateMesh.c.o
 .PHONY : src/mesh/generateMesh.c.o
 
@@ -340,6 +341,7 @@ src/mesh/generateMesh.i: src/mesh/generateMesh.c.i
 
 # target to preprocess a source file
 src/mesh/generateMesh.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/generateMesh.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/generateMesh.c.i
 .PHONY : src/mesh/generateMesh.c.i
 
@@ -348,6 +350,7 @@ src/mesh/generateMesh.s: src/mesh/generateMesh.c.s
 
 # target to generate assembly for a file
 src/mesh/generateMesh.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/myFem.dir/build.make CMakeFiles/myFem.dir/src/mesh/generateMesh.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/genMesh.dir/build.make CMakeFiles/genMesh.dir/src/mesh/generateMesh.c.s
 .PHONY : src/mesh/generateMesh.c.s
 

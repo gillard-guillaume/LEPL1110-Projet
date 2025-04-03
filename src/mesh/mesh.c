@@ -1,4 +1,4 @@
-# include "mesh.h"
+# include "../fem/fem.h"
 
 femGeo theGeometry;
 
@@ -123,7 +123,7 @@ void geoMeshGenerate(){
     int bis;
 
     // Aile
-    int *points = (int *)malloc((N +1)* sizeof(int));
+    int *points = (int *)malloc(N * sizeof(int));
     for (int i=0; i<N; i++){points[i] = gmshModelOccAddPoint(joukowsky_x[i], joukowsky_y[i], 0, 0.1, -1, &ierr);}
     points[N] = points[0];
 
@@ -451,7 +451,7 @@ void geoMeshRead(const char *filename)
 }
 
 void geoMeshUnfuck() {
-    int bettercallsaul = system("fixmesh.py");
+    int bettercallsaul = system("python3 ../src/mesh/fixmesh.py");
     if (bettercallsaul != 0) {
         printf("Error: fixmesh.py failed with error code %d\n", bettercallsaul);
         return;

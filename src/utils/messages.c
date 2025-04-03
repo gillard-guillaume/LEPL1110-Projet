@@ -1,5 +1,5 @@
 
-#include "messages.h"
+# include "../fem/fem.h"
 
 void femError(char *text, int line, char *file)                                  
 { 
@@ -67,3 +67,4 @@ void femElasticityPrint(femProblem *theProblem)
           if (theCondition->type==DIRICHLET_Y)  printf(" imposing %9.2e as the vertical displacement  \n",value); }
     printf(" ======================================================================================= \n\n");
 }
+

@@ -56,7 +56,8 @@ add_executable(${EXEC_NAME} src/fem/fem.c
                             src/utils/messages.c 
                             src/mesh/mesh.c 
                             src/mesh/joukowsky.c
-                            src/main.c)
+                            src/main.c
+                            src/mesh/generateMesh.c)
 
 target_link_libraries(${EXEC_NAME} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
 
@@ -77,11 +78,11 @@ target_compile_definitions(${EXEC_NAME} PRIVATE graphic)
 add_custom_target(run COMMAND ${EXEC_NAME} DEPENDS ${EXEC_NAME} COMMENT "./${EXEC_NAME}")
 
 # Generation of the mesh
-add_executable(${MESH} src/fem/fem.c 
-                            src/utils/messages.c 
-                            src/mesh/mesh.c 
-                            src/mesh/joukowsky.c 
-                            src/mesh/generateMesh.c)
+add_executable(${MESH}  src/fem/fem.c 
+                        src/utils/messages.c 
+                        src/mesh/mesh.c 
+                        src/mesh/joukowsky.c 
+                        src/mesh/generateMesh.c)
 
 target_link_libraries(${MESH} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
 

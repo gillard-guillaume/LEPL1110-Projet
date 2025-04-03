@@ -1,12 +1,12 @@
 #include "generateMesh.h"
 
-void generateMesh(void){
+void generateMesh(){
     clock_t start = clock();
     double R = 1.2;
     double mu_x = -0.1;
     double mu_y = 0.1;
     int N = 100;
-    
+    double h = 0.1;
 
     geoInitialize();
     femGeo* theGeometry = geoGetGeometry();    
@@ -23,17 +23,15 @@ void generateMesh(void){
     theGeometry->hCircle1     = theGeometry->h;
     theGeometry->hCircle2     = theGeometry->h;
     theGeometry->hCircle3     = theGeometry->h;
-
-    theGeometry->elementType  = FEM_TRIANGLE;
+    
     geoMeshGenerate();
     geoMeshImport();
     geoSetDomainName(0,"Circle1");
     geoSetDomainName(1,"Foil");
     geoSetDomainName(2,"Circle2");
     geoSetDomainName(3,"Circle3");
-    geoMeshWrite("../../data/mesh.txt");
+    geoMeshWrite("../data/mesh.txt");
     geoFinalize();
 
     printf("Mesh generated in %f seconds\n", (double)(clock() - start) / CLOCKS_PER_SEC);
 }
-

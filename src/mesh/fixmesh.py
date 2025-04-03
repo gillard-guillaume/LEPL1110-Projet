@@ -100,10 +100,10 @@ class Mesh:
         return self.__str__()
 
 if __name__ == "__main__":
-    mesh = Mesh("data/mesh.txt")
+    mesh = Mesh("../data/mesh.txt")
     print(mesh)
     mesh.unfuck()
     print(mesh)
-    mesh.write("data/mesh.txt")
+    mesh.write("../data/mesh.txt")
 
 # %%
