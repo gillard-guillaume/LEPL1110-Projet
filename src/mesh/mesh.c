@@ -451,7 +451,7 @@ void geoMeshRead(const char *filename)
 }
 
 void geoMeshUnfuck() {
-    int bettercallsaul = system("python3 ../src/mesh/fixmesh.py");
+    int bettercallsaul = system("python ../src/mesh/fixmesh.py");
     if (bettercallsaul != 0) {
         printf("Error: fixmesh.py failed with error code %d\n", bettercallsaul);
         return;

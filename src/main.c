@@ -15,7 +15,7 @@
      printf("\n\n    V : Mesh and displacement norm \n");
      printf("    D : Domains \n");
      printf("    N : Next domain highlighted\n\n\n");
- 
+    
      femGeo* theGeometry = geoGetGeometry();
      generateMesh();
      geoMeshRead("../data/mesh.txt");
@@ -28,7 +28,7 @@
      double E   = 71.7e9;
      double nu  = 0.33;
      double rho = 2.810e3; 
-     double g   = 9.81 * 1;
+     double g   = 9.81 * 0;
      femRenumType renumType = FEM_XNUM;
      femSolverType solverType = FEM_CG;
      theGeometry->elementType  = FEM_TRIANGLE;

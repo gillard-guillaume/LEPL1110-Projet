@@ -17,6 +17,7 @@
         "utility": "c",
         "chrono": "c",
         "compare": "c",
-        "complex": "c"
+        "complex": "c",
+        "glfem.h": "c"
     }
 }

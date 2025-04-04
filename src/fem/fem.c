@@ -701,6 +701,7 @@ void femElasticityAssembleNeumann(femProblem *theProblem){
 }
 
 void femElasticityAssembleNeumannNormal(femProblem *theProblem){
+    printf("Assembling Neumann normal forces\n");
     femFullSystem  *theSystem   = theProblem->system;
     femIntegration *theRule     = theProblem->ruleEdge;
     femDiscrete    *theSpace    = theProblem->spaceEdge;
@@ -749,6 +750,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
 
                     double fx = value * nx;
                     double fy = value * ny;
+                    printf("f = %f, fx = %f, fy = %f\n", value, fx, fy);
 
                     for (i = 0; i < theSpace->n; i++) {
                         B[2*map[i]  ] += phi[i] * fx * jacobian * weight;
@@ -783,6 +785,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
      femFullSystemInit(theSystem);
      femElasticityAssembleElements(theProblem);
      femElasticityAssembleNeumann(theProblem);
+     femElasticityAssembleNeumannNormal(theProblem);
      int size = theSystem->size;
      if (A_copy == NULL){
          A_copy = (double **) malloc(sizeof(double *) * size);
@@ -832,8 +835,8 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
  }
 
  double foilProfile(double x, double y) {
-    double amp = 5.0;
-    double xShape = exp(-20.0 * (x - 0.1) * (x - 0.1));  // pic vers l'avant
-    double yDir = (y < 0) ? -1.0 : 1.0;                  // vers le haut si dessous
-    return amp * xShape * yDir;
+    double amp = 5e2;
+    double xShape = x +1;  // pic vers l'avant
+    double yDir = (y < 0) ? 1.0 : -1.0;                  // vers le haut si dessous
+    return amp * yDir;
 }

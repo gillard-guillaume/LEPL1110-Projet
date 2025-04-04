@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.6)
 project(myFemProject)
 
 set(EXEC_NAME myFem)
-set(MESH genMesh)
 
 # Set GMSH Version : example gmsh-4.12.2 -> GMSH_VERSION=gmsh-4.12, GMSH_MINOR=2
 set(GMSH_VERSION gmsh-4.13)
@@ -76,26 +75,4 @@ target_compile_definitions(${EXEC_NAME} PRIVATE graphic)
 
 # add a custom target so we can do make run directly
 add_custom_target(run COMMAND ${EXEC_NAME} DEPENDS ${EXEC_NAME} COMMENT "./${EXEC_NAME}")
-
-# Generation of the mesh
-add_executable(${MESH}  src/fem/fem.c 
-                        src/utils/messages.c 
-                        src/mesh/mesh.c 
-                        src/mesh/joukowsky.c 
-                        src/mesh/generateMesh.c)
-
-target_link_libraries(${MESH} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
-
-if(APPLE)
-    target_compile_options(${MESH} PRIVATE "-Wdeprecated-declarations")
-    target_compile_definitions(${MESH} PRIVATE -D GL_SILENCE_DEPRECATION)
-endif()
-
-if (MSVC)
-    set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${MESH})
-    target_compile_options(${MESH} PRIVATE "/W2")
-endif()
-
-target_compile_definitions(${MESH} PRIVATE graphic)
-add_custom_target(mesh COMMAND ${MESH} DEPENDS ${MESH} COMMENT "./${MESH}")
 
