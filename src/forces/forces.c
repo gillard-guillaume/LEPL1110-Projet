@@ -17,7 +17,7 @@ double g(double x, double L, double b) {
 }
 
 double foilProfile(double x, double y, double length) {
-    double L1 = 400;   // Amplitude haut
+    double L1 = 500;   // Amplitude haut
     double L2 = 500;  // Amplitude bas
     double b = length / 2.0;
 

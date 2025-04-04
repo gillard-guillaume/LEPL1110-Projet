@@ -20,9 +20,9 @@ void generateMesh(){
     theGeometry->dCircle1     = theGeometry->h * 2;
     theGeometry->dCircle2     = theGeometry->h * 2;
     theGeometry->dCircle3     = theGeometry->h * 2;
-    theGeometry->hCircle1     = theGeometry->h;
-    theGeometry->hCircle2     = theGeometry->h;
-    theGeometry->hCircle3     = theGeometry->h;
+    theGeometry->hCircle1     = theGeometry->h * 0.5;
+    theGeometry->hCircle2     = theGeometry->h * 0.5;
+    theGeometry->hCircle3     = theGeometry->h * 0.25;
     
     geoMeshGenerate();
     geoMeshImport();
