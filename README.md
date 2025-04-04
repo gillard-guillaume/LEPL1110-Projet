@@ -58,6 +58,17 @@ cmake ..
 make run
 ```
 
+## Contrôles clavier
+
+Lors de l'exécution du programme, différentes touches permettent d'interagir avec l'affichage :
+
+- **`V`** : Afficher le maillage avec les déplacements (mode par défaut).
+- **`S`** : Afficher la matrice associée au problème.
+- **`D`** : Afficher uniquement le domaine géométrique (sans déformation).
+- **`N`** : Changer le domaine affiché (uniquement en mode domaine (`D`)).
+- **`X`** : Voir les résidus en X.
+- **`Y`** : Voir les résidus en Y.
+- **`F`** : Voir les résidus totaux.
 
 ---
 ## Arborescence
@@ -134,11 +145,4 @@ cmake ..
 make run
 ```
 
-## Contrôles clavier
 
-Lors de l'exécution du programme, différentes touches permettent d'interagir avec l'affichage :
-
-- **`V`** : Afficher le maillage avec les déplacements (mode par défaut).
-- **`S`** : Afficher la matrice associée au problème.
-- **`D`** : Afficher uniquement le domaine géométrique (sans déformation).
-- **`N`** : Changer le domaine affiché (uniquement en mode domaine (`D`)).
