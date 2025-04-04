@@ -58,6 +58,7 @@ int joukowsky(femGeo *theGeometry){
 
     // Finding insides circles centers and radius
     double wing_length = fabs(x_max) + fabs(x_min);
+    theGeometry->Length = wing_length;
 
     double x_center1 = 0.0 - wing_length/3;
     double x_center2 = 0.0;

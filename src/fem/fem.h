@@ -78,7 +78,7 @@
  } femDomain;
  
  typedef struct {
-    double R, muX, muY, N;
+    double R, muX, muY, N, Length;
     double *joukowsky_x;
     double *joukowsky_y;
     double xCircle1, yCircle1, rCircle1, hCircle1, dCircle1;
@@ -122,7 +122,7 @@
      femDomain* domain;
      femBoundaryType type; 
      double value;
-     double (*profile)(double x, double y);
+     double (*profile)(double x, double y, double lenght);
  } femBoundaryCondition;
  
  typedef struct {
@@ -212,6 +212,5 @@
  void                free_csr(CSRMatrix *A);
  int                 NonZero(double **A, int n);
 
- double foilProfile(double x, double y);   
  
  #endif // _FEM_H_

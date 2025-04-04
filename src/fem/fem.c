@@ -712,6 +712,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
     int iBnd, iElem, iInteg, iEdge, i, map[2];
     int nLocal = 2;
     double *B = theSystem->B;
+    double length = theGeometry->Length;
 
     for (iBnd = 0; iBnd < theProblem->nBoundaryConditions; iBnd++) {
         femBoundaryCondition *theCondition = theProblem->conditions[iBnd];
@@ -744,8 +745,11 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
                     double xInteg = phi[0] * x[0] + phi[1] * x[1];
                     double yInteg = phi[0] * y[0] + phi[1] * y[1];
 
+                    printf("xInteg = %f, yInteg = %f\n", xInteg, yInteg);
+                    printf("lenght = %f\n", length);
+
                     double value = (theCondition->profile != NULL)
-                        ? theCondition->profile(xInteg, yInteg)
+                        ? theCondition->profile(xInteg, yInteg, length)
                         : theCondition->value;
 
                     double fx = value * nx;
@@ -786,7 +790,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
      femElasticityAssembleElements(theProblem);
      femElasticityAssembleNeumann(theProblem);
      femElasticityAssembleNeumannNormal(theProblem);
-     int size = theSystem->size;
+         int size = theSystem->size;
      if (A_copy == NULL){
          A_copy = (double **) malloc(sizeof(double *) * size);
          for (int i = 0; i < size; i++) { A_copy[i] = (double *) malloc(sizeof(double) * size); }
@@ -833,10 +837,3 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
  
      return residuals;
  }
-
- double foilProfile(double x, double y) {
-    double amp = 5e2;
-    double xShape = x +1;  // pic vers l'avant
-    double yDir = (y < 0) ? 1.0 : -1.0;                  // vers le haut si dessous
-    return amp * yDir;
-}

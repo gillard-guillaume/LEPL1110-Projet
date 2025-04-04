@@ -18,6 +18,7 @@
         "chrono": "c",
         "compare": "c",
         "complex": "c",
-        "glfem.h": "c"
+        "glfem.h": "c",
+        "random": "c"
     }
 }

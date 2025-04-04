@@ -56,7 +56,8 @@ add_executable(${EXEC_NAME} src/fem/fem.c
                             src/mesh/mesh.c 
                             src/mesh/joukowsky.c
                             src/main.c
-                            src/mesh/generateMesh.c)
+                            src/mesh/generateMesh.c
+                            src/forces/forces.c)
 
 target_link_libraries(${EXEC_NAME} glfw ${OPENGL_gl_LIBRARY} ${GMSH_LIBRARY})
 

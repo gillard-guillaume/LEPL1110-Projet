@@ -8,6 +8,7 @@
 #include "mesh/mesh.h"
 #include "mesh/generateMesh.h"
 #include "gl/glfem.h"
+#include "forces/forces.h"
 #include "../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h"
 
 int main(void);
