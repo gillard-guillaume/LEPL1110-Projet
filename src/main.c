@@ -16,11 +16,31 @@
     printf("    D : Domains \n");
     printf("    N : Next domain highlighted\n\n\n");
     
+    // Paramètres du problème
+    double R = 1.2;
+    double mu_x = -0.1;
+    double mu_y = 0.1;
+
+    // Aluminium 7075-T6  
+    double E   = 71.7e9;
+    double nu  = 0.33;
+    double rho = 2.810e3; 
+
+    double g   = 9.81;
+    double g_multiplier = 1.0;
+
+    femRenumType renumType = FEM_XNUM;
+    femSolverType solverType = FEM_CG;
+    femElasticCase caseType = PLANAR_STRAIN;
+    femElementType elementType = FEM_TRIANGLE;
+    // Fin des paramètres du problème
+
+
     // -1- Creation du maillage
     int ierr;
     geoInitialize(ierr);
     femGeo* theGeometry = geoGetGeometry();
-    generateMesh();
+    generateMesh(R, mu_x, mu_y);
     geoFinalize(ierr);
     geoInitialize(ierr);
     geoMeshRead("../data/mesh.txt");
@@ -29,19 +49,11 @@
  //
  //  -2- Creation probleme 
  //
-     // Aluminium 7075-T6  
-     double E   = 71.7e9;
-     double nu  = 0.33;
-     double rho = 2.810e3; 
-     double g   = 9.81 * 1;
-     femRenumType renumType = FEM_XNUM;
-     femSolverType solverType = FEM_CG;
-     theGeometry->elementType  = FEM_TRIANGLE;
-     femElasticCase caseType = PLANAR_STRAIN;
- 
+     
+    theGeometry->elementType  = elementType;
  
      clock_t start = clock();
-     femProblem* theProblem = femElasticityCreate(theGeometry,E,nu,rho,g, caseType, renumType);
+     femProblem* theProblem = femElasticityCreate(theGeometry,E,nu,rho,g*g_multiplier, caseType, renumType);
      femElasticityAddBoundaryCondition(theProblem, "Foil", NEUMANN_NORMAL, 1e4, foilProfile);
      femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_X,0.0, NULL);
      femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_Y,0.0, NULL);

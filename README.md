@@ -15,17 +15,51 @@ Encadré par :
 
 ## Introduction
 
-Ce projet a pour objectif d'implémenter une simulation de l'application de forces sur une aile générée par transformation de Joukowsky, en utilisant la méthode des éléments finis, dans le cadre du cours **LEPL1110**.  
+Ce projet a pour objectif d'implémenter une simulation la déformation d'une aile générée par transformation de Joukovsky face à des forces extérieurs en utilisant la méthode des éléments finis, dans le cadre du cours **LEPL1110**.  
 L'aile est tout d'abord créée à partir d'une transformation conforme de Joukowsky, puis un maillage est généré à l'aide du logiciel **Gmsh**.  
 Enfin, les forces sont appliquées et la déformation de l'aile est simulée en utilisant la méthode des éléments finis développée en **C**.
-
 
 
 > ⚠️ **Attention** : Le SDK de Gmsh intégré fonctionne uniquement sous Linux.  
 > Pour d'autres systèmes d'exploitation (Windows, macOS), veuillez télécharger et installer Gmsh depuis le site officiel : [https://gmsh.info/](https://gmsh.info/)
 
 ---
+## Utilisation
+  
 
+Modifier les paramètres dans **src/main**
+- Profil de Joukovsky
+  - `R`: Rayon du cercle
+  - `mu_x` : Centre du cercle sur l'axe des réels
+  - `mu_y` : Centre du cercle sur l'axe des imaginaires
+- Paramètres du matériaux (par défaut Aluminium 7075-T6)
+  - `E` : Module de Young
+  - `nu` : Module de Poisson
+  - `rho` : Masse volumique
+- Paramètre d'environnement
+  - `g` : Gravitation terrestre
+  - `g_multiplier` : Multiplicateur de gravité
+- Paramètres du problème 
+  - `renumType` : WIP
+  - `solverType` : Type de solveur parmis **Cholvesky** (FEM_CHOV), **Gauss** (FEM_GAUSS) et **gradient conjugué** FEM_CG
+  - `caseType` : Déformations planes ou tensions planes
+  - `elementType` : Forme des éléments (**FEM_TRIANGLE**)
+
+Pour lancer le programme :
+```bash
+# Créer un dossier de compilation
+mkdir build
+cd build
+
+# Générer les fichiers de Makefile
+cmake ..
+
+# Compiler et exécuter
+make run
+```
+
+
+---
 ## Arborescence
 
 

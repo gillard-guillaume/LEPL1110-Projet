@@ -1,10 +1,7 @@
 #include "generateMesh.h"
 
-void generateMesh(){
+void generateMesh(double R, double mu_x, double mu_y){
     clock_t start = clock();
-    double R = 1.2;
-    double mu_x = -0.1;
-    double mu_y = 0.1;
     int N = 100;
     double h = 0.1;
 
