@@ -135,10 +135,10 @@ CMakeFiles/myFem.dir/src/gl/glfem.c.o: ../src/gl/glfem.c \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-  /usr/include/GL/glu.h \
   /usr/include/GL/gl.h \
   /usr/include/GL/glext.h \
   /usr/include/KHR/khrplatform.h \
+  /usr/include/GL/glu.h \
   ../src/fem/fem.h \
   /usr/include/stdio.h \
   /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h \
@@ -287,10 +287,10 @@ CMakeFiles/myFem.dir/src/main.c.o: ../src/main.c \
   /usr/include/stdint.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-  /usr/include/GL/glu.h \
   /usr/include/GL/gl.h \
   /usr/include/GL/glext.h \
   /usr/include/KHR/khrplatform.h \
+  /usr/include/GL/glu.h \
   ../src/fem/fem.h \
   ../src/forces/forces.h \
   ../gmsh/gmsh-4.13.1-Linux64-sdk/include/gmshc.h
