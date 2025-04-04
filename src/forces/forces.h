@@ -9,6 +9,6 @@
 
 double f(double x, double L, double b);
 double g(double x, double L, double b);
-double foilProfile(double x, double y, double lenght);
+double foilProfile(double x, double y, double lenght, double lift);
 
 #endif // FORCES_H

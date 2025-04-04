@@ -42,7 +42,7 @@
  
      clock_t start = clock();
      femProblem* theProblem = femElasticityCreate(theGeometry,E,nu,rho,g, caseType, renumType);
-     femElasticityAddBoundaryCondition(theProblem, "Foil", NEUMANN_NORMAL, 0.0, foilProfile);
+     femElasticityAddBoundaryCondition(theProblem, "Foil", NEUMANN_NORMAL, 1e4, foilProfile);
      femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_X,0.0, NULL);
      femElasticityAddBoundaryCondition(theProblem,"Circle1",DIRICHLET_Y,0.0, NULL);
      femElasticityAddBoundaryCondition(theProblem,"Circle2",DIRICHLET_X,0.0, NULL);
@@ -78,68 +78,68 @@
 
 
  
-     free(normDisplacement);
-     femElasticityFree(theProblem) ; 
-     geoFinalize(ierr);
-     exit(EXIT_SUCCESS);
-     return 0;  
+    //  free(normDisplacement);
+    //  femElasticityFree(theProblem) ; 
+    //  geoFinalize(ierr);
+    //  exit(EXIT_SUCCESS);
+    //  return 0;  
 
   
  //
  //  -4- Visualisation du maillage
  //  
      
-    //  int mode = 1; 
-    //  int domain = 0;
-    //  int freezingButton = FALSE;
-    //  double t, told = 0;
-    //  char theMessage[MAXNAME];
+     int mode = 1; 
+     int domain = 0;
+     int freezingButton = FALSE;
+     double t, told = 0;
+     char theMessage[MAXNAME];
     
   
-    //  GLFWwindow* window = glfemInit("EPL1110 : Linear elasticity ");
-    //  glfwMakeContextCurrent(window);
+     GLFWwindow* window = glfemInit("EPL1110 : Linear elasticity ");
+     glfwMakeContextCurrent(window);
  
-    //  do {
-    //      int w,h;
-    //      glfwGetFramebufferSize(window,&w,&h);
-    //      glfemReshapeWindows(theGeometry->theNodes,w,h);
+     do {
+         int w,h;
+         glfwGetFramebufferSize(window,&w,&h);
+         glfemReshapeWindows(theGeometry->theNodes,w,h);
  
-    //      t = glfwGetTime();  
-    //      if (glfwGetKey(window,'D') == GLFW_PRESS) { mode = 0;}
-    //      if (glfwGetKey(window,'V') == GLFW_PRESS) { mode = 1;}
-    //      if (glfwGetKey(window,'S') == GLFW_PRESS) { mode = 2;}
-    //      if (glfwGetKey(window,'N') == GLFW_PRESS && freezingButton == FALSE) { domain++; freezingButton = TRUE; told = t;}
+         t = glfwGetTime();  
+         if (glfwGetKey(window,'D') == GLFW_PRESS) { mode = 0;}
+         if (glfwGetKey(window,'V') == GLFW_PRESS) { mode = 1;}
+         if (glfwGetKey(window,'S') == GLFW_PRESS) { mode = 2;}
+         if (glfwGetKey(window,'N') == GLFW_PRESS && freezingButton == FALSE) { domain++; freezingButton = TRUE; told = t;}
          
-    //      if (t-told > 0.5) {freezingButton = FALSE; }
-    //      if (mode == 2){
-    //          glColor3f(1.0,0.0,0.0);
-    //          glfemPlotSolver(theProblem->system,theProblem->system->size,w,h);
-    //      }
-    //      if (mode == 1) {
-    //          glfemPlotField(theGeometry->theElements,normDisplacement);
-    //          glfemPlotMesh(theGeometry->theElements); 
-    //          sprintf(theMessage, "Number of elements : %d ",theGeometry->theElements->nElem);
-    //          glColor3f(1.0,0.0,0.0); glfemMessage(theMessage); }
-    //      if (mode == 0) {
-    //          domain = domain % theGeometry->nDomains;
-    //          glfemPlotDomain( theGeometry->theDomains[domain]); 
-    //          sprintf(theMessage, "%s : %d ",theGeometry->theDomains[domain]->name,domain);
-    //           glColor3f(1.0,0.0,0.0); glfemMessage(theMessage);  }
+         if (t-told > 0.5) {freezingButton = FALSE; }
+         if (mode == 2){
+             glColor3f(1.0,0.0,0.0);
+             glfemPlotSolver(theProblem->system,theProblem->system->size,w,h);
+         }
+         if (mode == 1) {
+             glfemPlotField(theGeometry->theElements,normDisplacement);
+             glfemPlotMesh(theGeometry->theElements); 
+             sprintf(theMessage, "Number of elements : %d ",theGeometry->theElements->nElem);
+             glColor3f(1.0,0.0,0.0); glfemMessage(theMessage); }
+         if (mode == 0) {
+             domain = domain % theGeometry->nDomains;
+             glfemPlotDomain( theGeometry->theDomains[domain]); 
+             sprintf(theMessage, "%s : %d ",theGeometry->theDomains[domain]->name,domain);
+              glColor3f(1.0,0.0,0.0); glfemMessage(theMessage);  }
              
-    //       glfwSwapBuffers(window);
-    //       glfwPollEvents();
-    //  } while( glfwGetKey(window,GLFW_KEY_ESCAPE) != GLFW_PRESS &&
-    //           glfwWindowShouldClose(window) != 1 );
+          glfwSwapBuffers(window);
+          glfwPollEvents();
+     } while( glfwGetKey(window,GLFW_KEY_ESCAPE) != GLFW_PRESS &&
+              glfwWindowShouldClose(window) != 1 );
              
-    //  // Check if the ESC key was pressed or the window was closed
+     // Check if the ESC key was pressed or the window was closed
  
-    //  free(normDisplacement);
-    //  femElasticityFree(theProblem) ; 
-    //  geoFinalize();
-    //  glfwTerminate(); 
+     free(normDisplacement);
+     femElasticityFree(theProblem) ; 
+     geoFinalize();
+     glfwTerminate(); 
      
-    //  exit(EXIT_SUCCESS);
-    //  return 0;  
+     exit(EXIT_SUCCESS);
+     return 0;  
  }
  
   

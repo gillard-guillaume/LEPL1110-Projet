@@ -549,7 +549,7 @@
     free(theProblem);
  }
      
- void femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value,  double (*profile)(double x, double y, double length))
+ void femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value,  double (*profile)(double x, double y, double length, double value))
  {
      int iDomain = geoGetDomain(nameDomain);
      if (iDomain == -1)  Error("Undefined domain :-(");
@@ -695,7 +695,6 @@ void femElasticityAssembleNeumann(femProblem *theProblem){
 }
 
 void femElasticityAssembleNeumannNormal(femProblem *theProblem){
-    printf("Assembling Neumann normal forces\n");
     femFullSystem  *theSystem   = theProblem->system;
     femIntegration *theRule     = theProblem->ruleEdge;
     femDiscrete    *theSpace    = theProblem->spaceEdge;
@@ -708,10 +707,12 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
     double *B = theSystem->B;
     double length = theGeometry->Length;
 
+
     for (iBnd = 0; iBnd < theProblem->nBoundaryConditions; iBnd++) {
         femBoundaryCondition *theCondition = theProblem->conditions[iBnd];
         femBoundaryType type = theCondition->type;
         femDomain *theDomain = theCondition->domain;
+        double lift = theCondition->value;
 
         if (type == NEUMANN_NORMAL) {
             for (iEdge = 0; iEdge < theDomain->nElem; iEdge++) {
@@ -743,7 +744,7 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
                     // printf("lenght = %f\n", length);
 
                     double value = (theCondition->profile != NULL)
-                        ? theCondition->profile(xInteg, yInteg, length)
+                        ? theCondition->profile(xInteg, yInteg, length, lift)
                         : theCondition->value;
 
                     double fx = value * nx;

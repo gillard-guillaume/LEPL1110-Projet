@@ -122,7 +122,7 @@
      femDomain* domain;
      femBoundaryType type; 
      double value;
-     double (*profile)(double x, double y, double lenght);
+     double (*profile)(double x, double y, double lenght, double lift);
  } femBoundaryCondition;
  
  typedef struct {
@@ -162,7 +162,7 @@
                                        femElasticCase iCase, femRenumType renumType);
  void                femElasticityFree(femProblem *theProblem);
  void                femElasticityPrint(femProblem *theProblem);
- void                femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value,  double (*profile)(double x, double y, double length));
+ void                femElasticityAddBoundaryCondition(femProblem *theProblem, char *nameDomain, femBoundaryType type, double value,  double (*profile)(double x, double y, double length, double lift));
  void                femElasticityAssembleElements(femProblem *theProblem);
  void                femElasticityAssembleNeumann(femProblem *theProblem);
  double*             femElasticitySolve(femProblem *theProblem, femSolverType solverType);

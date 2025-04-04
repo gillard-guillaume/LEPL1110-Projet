@@ -16,9 +16,9 @@ double g(double x, double L, double b) {
     return f(0.0, L, b) * (1.0 - 2.0 * x / b);
 }
 
-double foilProfile(double x, double y, double length) {
-    double L1 = 500;   // Amplitude haut
-    double L2 = 500;  // Amplitude bas
+double foilProfile(double x, double y, double length, double lift) {
+    double L1 = lift;   // Amplitude haut
+    double L2 = lift;  // Amplitude bas
     double b = length / 2.0;
 
     if (y > 0)

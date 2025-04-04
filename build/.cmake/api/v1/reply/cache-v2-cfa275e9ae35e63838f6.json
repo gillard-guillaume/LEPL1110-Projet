@@ -1262,6 +1262,102 @@
 			"value" : "[/usr/include][/usr/lib/x86_64-linux-gnu/libX11.so][c ][v()]"
 		},
 		{
+			"name" : "FREETYPE_INCLUDE_DIR_freetype2",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/include/freetype2"
+		},
+		{
+			"name" : "FREETYPE_INCLUDE_DIR_ft2build",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/include/freetype2"
+		},
+		{
+			"name" : "FREETYPE_LIBRARY_DEBUG",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "FREETYPE_LIBRARY_DEBUG-NOTFOUND"
+		},
+		{
+			"name" : "FREETYPE_LIBRARY_RELEASE",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/libfreetype.so"
+		},
+		{
+			"name" : "Fontconfig_INCLUDE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/usr/include"
+		},
+		{
+			"name" : "Fontconfig_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/libfontconfig.so"
+		},
+		{
 			"name" : "GLFW_BINARY_DIR",
 			"properties" : 
 			[
@@ -1564,6 +1660,458 @@
 			],
 			"type" : "PATH",
 			"value" : "OPENGL_xmesa_INCLUDE_DIR-NOTFOUND"
+		},
+		{
+			"name" : "PKG_CONFIG_ARGN",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Arguments to supply to pkg-config"
+				}
+			],
+			"type" : "STRING",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_CONFIG_EXECUTABLE",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "pkg-config executable"
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/bin/pkg-config"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_CFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-I/usr/include/uuid;-I/usr/include/freetype2;-I/usr/include/libpng16"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_CFLAGS_I",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_CFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_FOUND",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "1"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_INCLUDEDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/include"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_INCLUDE_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/include/uuid;/usr/include/freetype2;/usr/include/libpng16"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LDFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-L/usr/lib/x86_64-linux-gnu;-lfontconfig;-lfreetype"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LDFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LIBDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/lib/x86_64-linux-gnu"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LIBRARIES",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "fontconfig;freetype"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LIBRARY_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/lib/x86_64-linux-gnu"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LIBS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LIBS_L",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LIBS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_LIBS_PATHS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_MODULE_NAME",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "fontconfig"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_PREFIX",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_CFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-I/usr/include/uuid;-I/usr/include/freetype2;-I/usr/include/libpng16"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_CFLAGS_I",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_CFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_INCLUDE_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/include/uuid;/usr/include/freetype2;/usr/include/libpng16"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LDFLAGS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "-L/usr/lib/x86_64-linux-gnu;-lfontconfig;-luuid;-lexpat;-lm;-lfreetype;-lpng16;-lm;-lz;-lm;-lz;-lbrotlidec;-lbrotlicommon"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LDFLAGS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LIBDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LIBRARIES",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "fontconfig;uuid;expat;m;freetype;png16;m;z;m;z;brotlidec;brotlicommon"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LIBRARY_DIRS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/lib/x86_64-linux-gnu"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LIBS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LIBS_L",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LIBS_OTHER",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_STATIC_LIBS_PATHS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_VERSION",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "2.13.1"
+		},
+		{
+			"name" : "PKG_FONTCONFIG_fontconfig_INCLUDEDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_fontconfig_LIBDIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_fontconfig_PREFIX",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
+		},
+		{
+			"name" : "PKG_FONTCONFIG_fontconfig_VERSION",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : ""
 		},
 		{
 			"name" : "RT_LIBRARY",
@@ -2151,7 +2699,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "X11_Xft_INCLUDE_PATH-NOTFOUND"
+			"value" : "/usr/include"
 		},
 		{
 			"name" : "X11_Xft_LIB",
@@ -2167,7 +2715,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "X11_Xft_LIB-NOTFOUND"
+			"value" : "/usr/lib/x86_64-linux-gnu/libXft.so"
 		},
 		{
 			"name" : "X11_Xi_INCLUDE_PATH",
@@ -2890,6 +3438,30 @@
 			"value" : "X11_xkbfile_LIB-NOTFOUND"
 		},
 		{
+			"name" : "__pkg_config_arguments_PKG_FONTCONFIG",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "QUIET;fontconfig"
+		},
+		{
+			"name" : "__pkg_config_checked_PKG_FONTCONFIG",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "1"
+		},
+		{
 			"name" : "myFemProject_BINARY_DIR",
 			"properties" : 
 			[
@@ -2924,6 +3496,50 @@
 			],
 			"type" : "STATIC",
 			"value" : "/root/FEM/LEPL1110-Projet"
+		},
+		{
+			"name" : "pkgcfg_lib_PKG_FONTCONFIG_fontconfig",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/libfontconfig.so"
+		},
+		{
+			"name" : "pkgcfg_lib_PKG_FONTCONFIG_freetype",
+			"properties" : 
+			[
+				{
+					"name" : "ADVANCED",
+					"value" : "1"
+				},
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/usr/lib/x86_64-linux-gnu/libfreetype.so"
+		},
+		{
+			"name" : "prefix_result",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : ""
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "/usr/lib/x86_64-linux-gnu"
 		}
 	],
 	"kind" : "cache",
