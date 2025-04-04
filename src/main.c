@@ -94,16 +94,10 @@
     printf(" ==== Minimum displacement          : %14.7e \n",hMin);
     printf(" ==== Maximum displacement          : %14.7e \n",hMax);
  
-    //  free(normDisplacement);
-    //  femElasticityFree(theProblem) ; 
-    //  geoFinalize(ierr);
-    //  exit(EXIT_SUCCESS);
-    //  return 0;  
-
   
- //
- //  -4- Visualisation du maillage
- //  
+ 
+//   -4- Visualisation du maillage
+  
      
     int mode = 1; 
     int domain = 0;
