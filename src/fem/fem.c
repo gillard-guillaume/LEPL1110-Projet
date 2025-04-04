@@ -786,16 +786,16 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
     femElasticityAssembleNeumann(theProblem);
     femElasticityAssembleNeumannNormal(theProblem);
         int size = theSystem->size;
-    // if (A_copy == NULL){
-    //     A_copy = (double **) malloc(sizeof(double *) * size);
-    //     for (int i = 0; i < size; i++) { A_copy[i] = (double *) malloc(sizeof(double) * size); }
-    // }
-    // if (B_copy == NULL) { B_copy = (double *) malloc(sizeof(double) * size); }
+    if (A_copy == NULL){
+        A_copy = (double **) malloc(sizeof(double *) * size);
+        for (int i = 0; i < size; i++) { A_copy[i] = (double *) malloc(sizeof(double) * size); }
+    }
+    if (B_copy == NULL) { B_copy = (double *) malloc(sizeof(double) * size); }
 
-    // for (int i = 0; i < size; i++){
-    //     for (int j = 0; j < size; j++) { A_copy[i][j] = theSystem->A[i][j]; }
-    //     B_copy[i] = theSystem->B[i];
-    // }
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++) { A_copy[i][j] = theSystem->A[i][j]; }
+        B_copy[i] = theSystem->B[i];
+    }
 
     int *theConstrainedNodes = theProblem->constrainedNodes;
     for (int i = 0; i < size; i++){
@@ -805,30 +805,25 @@ void femElasticityAssembleNeumannNormal(femProblem *theProblem){
         }
     }
 
-    printf("Solving the system\n");
     femFullSystemEliminate(theSystem, solver);
-    printf("System solved\n");
     return theSystem->B;
  }
  
- double *femElasticityForces(femProblem *theProblem){
-     double *residuals = theProblem->residuals;
-     double *soluce    = theProblem->soluce;
-     int size = theProblem->system->size;
- 
-     if (residuals == NULL) { residuals = (double *) malloc(sizeof(double) * size); }
- 
-     for (int i = 0; i < size; i++) { residuals[i] = 0.0; }
- 
- 
-     for (int i = 0; i < size; i++){
-         for (int j = 0; j < size; j++) { residuals[i] += A_copy[i][j] * soluce[j]; }
-         residuals[i] -= B_copy[i];
-     }
- 
-     for (int i = 0; i < size; i++) {free(A_copy[i]); A_copy[i] = NULL;}
-     free(A_copy); free(B_copy);
-     A_copy = NULL; B_copy = NULL;
- 
-     return residuals;
- }
+ double *femElasticityForces(femProblem *theProblem, double *soluce){
+    double *residuals = theProblem->residuals;
+    int size = theProblem->system->size;
+
+    if (residuals == NULL) { residuals = (double *) malloc(sizeof(double) * size); }
+
+    for (int i = 0; i < size; i++) { residuals[i] = 0.0; }
+
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++) { residuals[i] += A_copy[i][j] * soluce[j]; }
+        residuals[i] -= B_copy[i];
+    }
+
+    for (int i = 0; i < size; i++) {free(A_copy[i]); A_copy[i] = NULL;}
+    free(A_copy); free(B_copy);
+    A_copy = NULL; B_copy = NULL;
+    return residuals;
+}

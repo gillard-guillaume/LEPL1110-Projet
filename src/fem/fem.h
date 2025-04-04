@@ -166,7 +166,7 @@
  void                femElasticityAssembleElements(femProblem *theProblem);
  void                femElasticityAssembleNeumann(femProblem *theProblem);
  double*             femElasticitySolve(femProblem *theProblem, femSolverType solverType);
- double*             femElasticityForces(femProblem *theProblem);
+ double*             femElasticityForces(femProblem *theProblem, double *soluce);
  double              femElasticityIntegrate(femProblem *theProblem, double (*f));
  
  femIntegration*     femIntegrationCreate(int n, femElementType type);
