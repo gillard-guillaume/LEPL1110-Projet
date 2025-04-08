@@ -94,8 +94,7 @@
     printf(" ==== Minimum displacement          : %14.7e \n",hMin);
     printf(" ==== Maximum displacement          : %14.7e \n",hMax);
  
-  
- 
+    
 //   -4- Visualisation du maillage
   
      

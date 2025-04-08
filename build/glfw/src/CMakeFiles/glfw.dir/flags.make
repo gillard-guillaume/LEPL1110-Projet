@@ -4,9 +4,9 @@
 # compile C with /usr/bin/cc
 C_DEFINES = -D_GLFW_USE_CONFIG_H
 
-C_INCLUDES = -I/root/FEM/LEPL1110-Projet/glfw/include -I/root/FEM/LEPL1110-Projet/glfw/src -I/root/FEM/LEPL1110-Projet/build/glfw/src
+C_INCLUDES = -I/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/glfw/include -I/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/glfw/src -I/home/guillaume/Documents/EPL/Q6/LEPL1110-Projet/build/glfw/src
 
-C_FLAGS = -g -fPIC -Wall
+C_FLAGS = -fPIC -Wall
 
 # Custom flags: glfw/src/CMakeFiles/glfw.dir/context.c.o_FLAGS = -Wdeclaration-after-statement
 

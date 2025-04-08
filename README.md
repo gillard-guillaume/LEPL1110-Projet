@@ -9,7 +9,7 @@ Projet réalisé dans le cadre du cours **LEPL1110**.
 
 Encadré par :
 - **Tuteur** : Guilmain Vithit
-- **Assistants** : Quiriny, Antoine 
+- **Assistants** : Quiriny Antoine 
 - **Professeur responsable** : Vincent Legat
 
 
